@@ -38,6 +38,24 @@ h1 {
 	margin: 0px;
 }
 
+#toolbar {
+	margin-top: 20px;
+}
+
+#painel {
+	width: 100%;
+	margin-top: 20px;
+	border: none !important;
+}
+
+.rotulo {
+	width: 100px;
+}
+
+.ui-panelgrid td {
+	height: 35px;
+}
+
 #login-dialog {
 	width: 290px;
 	margin: auto;
