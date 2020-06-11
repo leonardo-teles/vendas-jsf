@@ -15,6 +15,16 @@
 	  </h:head>
 	  
 	  <h:body>
+	  
+	  		<p:ajaxStatus styleClass="ajax-status">
+	  			<f:facet name="start">
+	  				<h:graphicImage library="imagens" name="loading.gif"/>
+	  			</f:facet>
+	  			<f:facet name="complete">
+	  				<h:outputText value=""/>
+	  			</f:facet>
+	  		</p:ajaxStatus>
+	  
   			<div id="cabecalho">
   				<h:link>
   					<h:graphicImage library="imagens" name="logo-algaworks.png" id="logo"/>
