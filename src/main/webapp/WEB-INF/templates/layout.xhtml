@@ -16,7 +16,7 @@
 	  
 	  <h:body>
 	  
-	  		<p:ajaxStatus styleClass="ajax-status">
+	  		<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
 	  			<f:facet name="start">
 	  				<h:graphicImage library="imagens" name="loading.gif"/>
 	  			</f:facet>
@@ -41,6 +41,17 @@
 				Curso Online de Sistemas Comerciais Java EE com CDI, JPA e PrimeFaces -
 				<a href="http://bit.ly/Y8saFl" target="_blank">www.algaworks.com</a>
 			</div>
+			
+			<h:outputScript library="js" name="jquery.maskMoney.js"/>
+			<script>
+				function configurarMoeda() {
+					$(".moeda").maskMoney({ decimal: ",", thousands: ".", allowZero: true });
+				}
+				
+				$(document).ready(function() {
+					configurarMoeda();
+				});
+			</script>
 
 	  </h:body>
 </html>
