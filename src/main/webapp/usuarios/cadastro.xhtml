@@ -8,32 +8,33 @@
 	<ui:define name="titulo">Novo Usuário</ui:define>
 	
 	<ui:define name="corpo">
-		<h1>Novo Usuário</h1>
-		
-		<p:toolbar id="toolbar">
-			<p:toolbarGroup>
-				<p:button icon="pi pi-plus" value="Novo" outcome="/usuarios/cadastro"/>
-				<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar"/>
-			</p:toolbarGroup>
+		<h:form prependId="false">
+			<h1>Novo Usuário</h1>
 			
-			<p:toolbarGroup align="right">
-				<p:button icon="pi pi-search" value="Pesquisa"/>
-			</p:toolbarGroup>
-		</p:toolbar>
-		
-		<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
-		
-			<p:outputLabel value="Nome" for="nome"/>
-			<p:inputText id="nome" size="50" maxlength="80"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup>
+					<p:button icon="pi pi-plus" value="Novo" outcome="/usuarios/cadastro"/>
+					<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button icon="pi pi-search" value="Pesquisa"/>
+				</p:toolbarGroup>
+			</p:toolbar>
 			
-			<p:outputLabel value="e-Mail" for="email"/>
-			<p:inputText id="email" size="50" maxlength="50"/>
-
-			<p:outputLabel value="Senha" for="senha"/>
-			<p:password id="senha" size="20" maxlength="10"/>
-
-		</p:panelGrid>
+			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
+			
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" size="50" maxlength="80"/>
+				
+				<p:outputLabel value="e-Mail" for="email"/>
+				<p:inputText id="email" size="50" maxlength="50"/>
 	
+				<p:outputLabel value="Senha" for="senha"/>
+				<p:password id="senha" size="20" maxlength="10"/>
+	
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 	
 </ui:composition>
