@@ -50,7 +50,7 @@ h1 {
 }
 
 .rotulo {
-	width: 120px;
+	width: 160px;
 }
 
 .ui-panelgrid td {
@@ -78,3 +78,25 @@ h1 {
 	width: 35px;
 	height: 35px;
 }
+
+.produto-tabela > input {
+	width: 100% !important; 
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+    padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+    padding: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: -1px !important;
+}
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+    padding: 0px !important;
+}
+/* Customiza TabView - fim */
