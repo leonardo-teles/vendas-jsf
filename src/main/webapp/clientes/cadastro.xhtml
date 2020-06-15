@@ -37,7 +37,38 @@
 	
 				<p:outputLabel value="e-Mail" for="email"/>
 				<p:inputText id="email" size="30" maxlength="50"/>
+				
 			</p:panelGrid>
+			
+			<p:button icon="pi pi-plus" value="Adicionar Endereço" style="margin-bottom: 10px"/>
+			
+			<p:dataTable value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum endereco encontrado."
+						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Logradouro">
+					<h:outputText value="Av. Rodon Pacheco"/>
+				</p:column>
+			
+				<p:column headerText="Número" style="width: 120px">
+					<h:outputText value="455"/>
+				</p:column>
+
+				<p:column headerText="Complemento">
+					<h:outputText value="Sala 923"/>
+				</p:column>
+
+				<p:column headerText="CEP" style="width: 120px">
+					<h:outputText value="38408-111"/>
+				</p:column>
+
+				<p:column headerText="Cidade/UF">
+					<h:outputText value="Uberlândia/MG"/>
+				</p:column>
+
+				<p:column headerText="Ações" style="text-align: center; width: 100px">
+					<p:button icon="pi pi-pencil" title="Editar"/>
+					<p:commandButton icon="pi pi-trash" title="Excluir"/>
+				</p:column>
+			</p:dataTable>
 			
 		</h:form>
 	</ui:define>
