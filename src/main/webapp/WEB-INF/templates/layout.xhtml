@@ -26,9 +26,33 @@
 	  		</p:ajaxStatus>
 	  
   			<div id="cabecalho">
-  				<h:link>
-  					<h:graphicImage library="imagens" name="logo-algaworks.png" id="logo"/>
+  				<h:link id="logo" outcome="/index">
+  					<h:graphicImage library="imagens" name="logo-algaworks.png"/>
   				</h:link>
+  				
+  				<div style="float: right; margin-right: 30px">
+  					<span id="usuario-logado">
+  						Olá, usuário
+  					</span>
+  				
+	  				<h:form style="display: inline-block">
+	  					<p:menubar styleClass="menu-sistema">
+	  						<p:submenu label="Cadastros">
+	  							<p:menuitem value="Clientes" icon="pi pi-user-plus" outcome="/clientes/cadastro.xhtml"/>
+	  							<p:menuitem value="Usuários" icon="pi pi-users" outcome="/usuarios/cadastro.xhtml"/>
+	  							<p:separator/>
+	  							<p:menuitem value="Categorias"/>
+	  							<p:menuitem value="Produtos" icon="pi pi-th-large" outcome="/produtos/cadastro.xhtml"/>
+	  						</p:submenu>
+	  						<p:submenu label="Pedidos">
+	  							<p:menuitem value="Novo" icon="pi pi-plus" outcome="/pedidos/cadastro"/>
+	  							<p:menuitem value="Pesquisa" icon="pi pi-search" outcome="/pedidos/pesquisa"/>
+	  						</p:submenu>
+	  						
+	  						<p:menuitem value="Sair" icon="pi pi-sign-out" style="color:white"/>
+	  					</p:menubar>
+	  				</h:form>
+  				</div>
   			</div>
 	  
 		    <div id="conteudo">
