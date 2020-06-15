@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisar Clientes</ui:define>
+	
+	<ui:define name="corpo">
+		<h:form prependId="false">
+			<h1>Pesquisar Clientes</h1>
+			
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup>
+					<p:button icon="pi pi-search" value="Pesquisa"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button icon="pi pi-plus" value="Novo" outcome="/clientes/cadastro"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
+				<p:outputLabel value="CPF/CNPJ" for="cpfCnpj"/>
+				<p:inputText id="cpfCnpj" size="30" maxlength="15"/>
+				
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" size="60" maxlength="80"/>
+			</p:panelGrid>
+			
+			<p:dataTable value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum cliente encontrado."
+						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Nome">
+					<h:outputText value="Supermercados Guanabara"/>
+				</p:column>
+			
+				<p:column headerText="Tipo" style="width: 120px">
+					<h:outputText value="Jurídica"/>
+				</p:column>
+
+				<p:column headerText="CPF/CNPJ" style="width: 140px">
+					<h:outputText value="02.493.738/0001-83"/>
+				</p:column>
+
+				<p:column headerText="Ações" style="text-align: center; width: 100px">
+					<p:button icon="pi pi-pencil" title="Editar"/>
+					<p:commandButton icon="pi pi-trash" title="Excluir"/>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
