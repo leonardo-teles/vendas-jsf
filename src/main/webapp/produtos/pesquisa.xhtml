@@ -53,9 +53,14 @@
 			
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
 					<p:button icon="pi pi-pencil" title="Editar"/>
-					<p:commandButton icon="pi pi-trash" title="Excluir"/>
+					<p:commandButton icon="pi pi-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()"/>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de Produto" message="Tem certeza que deseja excluir o produto?" widgetVar="confirmacaoExclusao">
+				<p:button icon="pi pi-ban" value="Não" onclick="PF('confirmacaoExclusao').hide(); return false"/>
+				<p:commandButton icon="pi pi-trash" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" />
+			</p:confirmDialog>
 			
 		</h:form>
 	</ui:define>
