@@ -23,7 +23,6 @@
 			</p:toolbar>
 			
 			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
-			
 				<p:outputLabel value="Nome" for="nome"/>
 				<p:inputText id="nome" size="50" maxlength="80"/>
 				
@@ -32,9 +31,27 @@
 	
 				<p:outputLabel value="Senha" for="senha"/>
 				<p:password id="senha" size="20" maxlength="10"/>
-	
 			</p:panelGrid>
+			
+			<p:panelGrid columns="2" styleClass="ui-noborder">
+				<p:selectOneMenu id="grupo">
+					<f:selectItem itemLabel="Administradores"/>
+				</p:selectOneMenu>
+			
+				<p:button icon="pi pi-plus" value="Adicionar Grupo"/>			
+			</p:panelGrid>
+			
+			<p:dataTable value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="usuario" emptyMessage="Nenhum grupo encontrado."
+						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Grupo">
+					<h:outputText value="Auxiliares"/>
+				</p:column>
+			
+				<p:column headerText="Ação" style="text-align: center; width: 50px">
+					<p:commandButton icon="pi pi-trash" title="Excluir"/>
+				</p:column>
+			</p:dataTable>
+			
 		</h:form>
 	</ui:define>
-	
 </ui:composition>
