@@ -39,7 +39,36 @@
 				<p:inputText id="email" size="30" maxlength="50"/>
 			</p:panelGrid>
 			
-			<p:button icon="pi pi-plus" value="Adicionar Endereço" style="margin-bottom: 10px"/>
+			<p:button icon="pi pi-plus" value="Adicionar Endereço" style="margin-bottom: 10px" onclick="PF('adicionarEndereco').show(); return false"/>
+			
+			<p:dialog header="Inclusão de endereço" widgetVar="adicionarEndereco" modal="true" resizable="false" draggable="false">
+
+				<p:panelGrid columns="2" columnClasses="rotulo, campo" styleClass="ui-noborder">
+					<p:outputLabel value="Logradouro" for="logradouro"/>
+					<p:inputText id="logradouro" size="60" maxlength="80"/>
+					
+					<p:outputLabel value="Número" for="numero"/>
+					<p:inputText id="numero" size="15" maxlength="3"/>
+		
+					<p:outputLabel value="Complemento" for="complemento"/>
+					<p:inputText id="complemento" size="30" maxlength="50"/>
+					
+					<p:outputLabel value="CEP" for="cep"/>
+					<p:inputText id="cep" size="15" maxlength="9"/>
+					
+					<p:outputLabel value="Cidade" for="cidade"/>
+					
+					<h:panelGroup>
+						<p:inputText id="cidade" size="30" maxlength="30"/>
+						
+						<p:outputLabel value="UF" for="uf" style="margin-left: 10px; margin-right: 5px"/>
+						<p:inputText id="uf" size="5" maxlength="2"/>
+					</h:panelGroup>
+					
+				</p:panelGrid>
+				
+				<p:commandButton icon="pi pi-plus" value="Incluir" oncomplete="PF('adicionarEndereco').hide()" />
+			</p:dialog>
 			
 			<p:dataTable value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum endereco encontrado."
 						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
