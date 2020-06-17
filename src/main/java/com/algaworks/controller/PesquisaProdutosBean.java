@@ -1,14 +1,16 @@
 package com.algaworks.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
-@ManagedBean
-@RequestScoped
-public class PesquisaProdutosBean {
+@Named
+@ViewScoped
+public class PesquisaProdutosBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private List<Integer> produtosFiltrados;
 	

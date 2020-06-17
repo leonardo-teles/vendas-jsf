@@ -47,14 +47,14 @@
 	</dependency>
 	 -->
 	
-	<!-- Weld Servlet
+	<!-- Weld Servlet - Implementação CDI -->
 	<dependency>
 	    <groupId>org.jboss.weld.servlet</groupId>
 	    <artifactId>weld-servlet</artifactId>
 	    <version>2.4.8.Final</version>
 	    <scope>compile</scope>
 	</dependency>
-	 -->
+	 
   	
   	<!-- MySQL
   	<dependency>
