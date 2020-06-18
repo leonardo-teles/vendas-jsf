@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
+import com.algaworks.exception.NegocioException;
+
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 
 	private ExceptionHandler wrapped;
@@ -34,19 +36,42 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			ExceptionQueuedEventContext eventContext = (ExceptionQueuedEventContext) event.getSource();
 			
 			Throwable exception = eventContext.getException();
+			NegocioException negocioException = getNegocioException(exception);
+			
+			//boolean handled = false;
 			
 			try {
 				if (exception instanceof ViewExpiredException) {
+					//handled = true;
 					redirect("/");
-				} 
+				} else if(negocioException != null) {
+					//handled = true;
+					FacesUtil.addErrorMessage(negocioException.getMessage());
+				} else {
+					//handled = true;
+					redirect("/erro.xhtml");
+				}
 			} finally {
 				queuedEvent.remove();
+				/*
+				 * if(handled) { queuedEvent.remove(); }
+				 */
 			}
 		}
 		
 		getWrapped().handle();
 	}
 	
+	private NegocioException getNegocioException(Throwable exception) {
+		if (exception instanceof NegocioException) {
+			return (NegocioException) exception;
+		} else if(exception.getCause() != null) {
+			return getNegocioException(exception.getCause());
+		}
+		
+		return null;
+	}
+
 	private void redirect(String page) {
 		try {
 			FacesContext facesContext = FacesContext.getCurrentInstance();

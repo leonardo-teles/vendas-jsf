@@ -5,10 +5,11 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-	<p:toolbar id="toolbar">
+	<p:toolbar style="margin-top: 20px">
 		<p:toolbarGroup>
 			<p:button icon="pi pi-plus" value="Novo" outcome="/pedidos/cadastro"/>
-			<p:commandButton icon="pi pi-save" value="Salvar"/>
+			<p:commandButton value="Salvar" action="#{cadastroPedidosBean.salvar}" 
+							 icon="pi pi-save" update=":formPedidos:msg"/>
 		</p:toolbarGroup>
 		
 		<p:toolbarGroup align="right">

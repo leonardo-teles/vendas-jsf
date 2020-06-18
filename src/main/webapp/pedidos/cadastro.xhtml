@@ -8,14 +8,18 @@
 	<ui:define name="titulo">Novo Pedido</ui:define>
 	
 	<ui:define name="corpo">
-		<h:form prependId="false">
+		<h:form id="formPedidos">
 			<h1>Novo Pedido</h1>
+			
+			<p:messages closable="true" id="msg">
+				<p:autoUpdate/>
+			</p:messages>
 			
 			<ui:include src="/WEB-INF/templates/pedidos/botoes.xhtml"/>
 			
 			<ui:include src="/WEB-INF/templates/pedidos/corpo.xhtml"/>
 			
-			<p:tabView>
+			<p:tabView style="margin-top: 20px">
 				<p:tab title="Itens">
 					<ui:include src="/WEB-INF/templates/pedidos/itens.xhtml"/>
 				</p:tab>
