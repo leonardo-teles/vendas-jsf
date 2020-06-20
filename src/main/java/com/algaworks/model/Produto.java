@@ -1,16 +1,21 @@
 package com.algaworks.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-public class Grupo implements Serializable {
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	
 	private String nome;
 	
-	private String descricao;
+	private BigDecimal sku;
 	
+	private Integer quantidadeEstoque;
+	
+	private Categoria categoria;
+
 	public Long getId() {
 		return id;
 	}
@@ -27,12 +32,28 @@ public class Grupo implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public BigDecimal getSku() {
+		return sku;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setSku(BigDecimal sku) {
+		this.sku = sku;
+	}
+
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
@@ -51,7 +72,7 @@ public class Grupo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Grupo other = (Grupo) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

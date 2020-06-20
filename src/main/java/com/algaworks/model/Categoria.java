@@ -1,15 +1,19 @@
 package com.algaworks.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Grupo implements Serializable {
+public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	
-	private String nome;
-	
 	private String descricao;
+	
+	private Categoria categoriaPai;
+	
+	private List<Categoria> subCategorias = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -19,20 +23,28 @@ public class Grupo implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Categoria getCategoriaPai() {
+		return categoriaPai;
+	}
+
+	public void setCategoriaPai(Categoria categoriaPai) {
+		this.categoriaPai = categoriaPai;
+	}
+
+	public List<Categoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<Categoria> subCategorias) {
+		this.subCategorias = subCategorias;
 	}
 
 	@Override
@@ -51,7 +63,7 @@ public class Grupo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Grupo other = (Grupo) obj;
+		Categoria other = (Categoria) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
