@@ -2,9 +2,14 @@ package com.algaworks.model;
 
 import java.io.Serializable;
 
+import javax.persistence.*;
+
+@Entity
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	
 	private String logradouro;
@@ -19,6 +24,7 @@ public class Endereco implements Serializable {
 	
 	private String cep;
 	
+	@ManyToOne
 	private Cliente cliente;
 
 	public Long getId() {

@@ -9,17 +9,16 @@
 
    		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>br.com.alura.modelo.Livro</class>
-		<class>br.com.alura.modelo.Autor</class>
-		<class>br.com.alura.modelo.Usuario</class>
+		<class>com.algaworks.model.Cliente</class>
+		<class>com.algaworks.model.Endereco</class>
 
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/vendas_jsf?useSSL=false"/>
 			<property name="javax.persistence.jdbc.user" value="leonardo"/>
 			<property name="javax.persistence.jdbc.password" value="senha"/>
 
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
 		</properties>
