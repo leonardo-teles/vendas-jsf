@@ -2,13 +2,25 @@ package com.algaworks.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "grupos")
 public class Grupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@Column(nullable = false, length = 100)
 	private String nome;
 	
+	@Column(length = 200)
 	private String descricao;
 	
 	public Long getId() {
