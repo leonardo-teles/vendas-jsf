@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "enderecos")
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -12,19 +13,26 @@ public class Endereco implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
+	@Column(nullable = false, length = 150)
 	private String logradouro;
 	
+	@Column(nullable = false, length = 20)
 	private String numero;
 	
+	@Column(length = 150)
 	private String complemento;
 	
+	@Column(nullable = false, length = 60)
 	private String cidade;
 	
+	@Column(nullable = false, length = 60)
 	private String uf;
 	
+	@Column(nullable = false, length = 9)
 	private String cep;
 	
 	@ManyToOne
+	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 
 	public Long getId() {

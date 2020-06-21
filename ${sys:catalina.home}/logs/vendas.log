@@ -69,3 +69,87 @@ Caused by: java.sql.SQLSyntaxErrorException: Can't DROP 'FK5xgtdcjgh43ld8p50nrnk
 	... 16 more
 2020-06-20 01:08:48,936 INFO  [org.hibernate.orm.connections.access] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2e3f79a2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2020-06-20 01:08:50,942 INFO  [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-06-20 21:30:26,679 WARN  [org.hibernate.jpa.boot.spi.ProviderChecker] HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; [org.hibernate.jpa.HibernatePersistenceProvider] will be used instead.
+2020-06-20 21:30:26,689 INFO  [org.hibernate.jpa.internal.util.LogHelper] HHH000204: Processing PersistenceUnitInfo [name: vendasPU]
+2020-06-20 21:30:26,835 INFO  [org.hibernate.Version] HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-06-20 21:30:27,098 INFO  [org.hibernate.annotations.common.Version] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-06-20 21:30:27,300 WARN  [org.hibernate.orm.connections.pooling] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-06-20 21:30:27,314 INFO  [org.hibernate.orm.connections.pooling] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/vendas_jsf?useSSL=false]
+2020-06-20 21:30:27,315 INFO  [org.hibernate.orm.connections.pooling] HHH10001001: Connection properties: {user=leonardo, password=****}
+2020-06-20 21:30:27,315 INFO  [org.hibernate.orm.connections.pooling] HHH10001003: Autocommit mode: false
+2020-06-20 21:30:27,317 INFO  [org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-06-20 21:30:27,678 INFO  [org.hibernate.dialect.Dialect] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-06-20 21:30:28,134 INFO  [org.hibernate.orm.beans] HHH10005002: No explicit CDI BeanManager reference was passed to Hibernate, but CDI is available on the Hibernate ClassLoader.
+2020-06-20 21:30:28,223 INFO  [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 5.4.3.Final
+2020-06-20 21:30:29,075 INFO  [org.hibernate.orm.connections.access] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7afbf561] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-06-20 21:30:29,101 WARN  [org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl] GenerationTarget encountered exception accepting command : Error executing DDL "alter table enderecos drop foreign key FKifst74rmma55fhyky5g1l0589" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table enderecos drop foreign key FKifst74rmma55fhyky5g1l0589" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79) [javax.persistence-api-2.2.jar:2.2]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54) [javax.persistence-api-2.2.jar:2.2]
+	at com.algaworks.Teste.main(Teste.java:12) [classes/:?]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'vendas_jsf.enderecos' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:118) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:95) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:790) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:675) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	... 16 more
+2020-06-20 21:30:29,398 INFO  [org.hibernate.orm.connections.access] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4417af13] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-06-20 21:30:31,434 INFO  [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-06-20 21:31:13,227 WARN  [org.hibernate.jpa.boot.spi.ProviderChecker] HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; [org.hibernate.jpa.HibernatePersistenceProvider] will be used instead.
+2020-06-20 21:31:13,238 INFO  [org.hibernate.jpa.internal.util.LogHelper] HHH000204: Processing PersistenceUnitInfo [name: vendasPU]
+2020-06-20 21:31:13,336 INFO  [org.hibernate.Version] HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-06-20 21:31:13,493 INFO  [org.hibernate.annotations.common.Version] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-06-20 21:31:13,696 WARN  [org.hibernate.orm.connections.pooling] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-06-20 21:31:13,713 INFO  [org.hibernate.orm.connections.pooling] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/vendas_jsf?useSSL=false]
+2020-06-20 21:31:13,713 INFO  [org.hibernate.orm.connections.pooling] HHH10001001: Connection properties: {user=leonardo, password=****}
+2020-06-20 21:31:13,713 INFO  [org.hibernate.orm.connections.pooling] HHH10001003: Autocommit mode: false
+2020-06-20 21:31:13,715 INFO  [org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-06-20 21:31:13,929 INFO  [org.hibernate.dialect.Dialect] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-06-20 21:31:14,248 INFO  [org.hibernate.orm.beans] HHH10005002: No explicit CDI BeanManager reference was passed to Hibernate, but CDI is available on the Hibernate ClassLoader.
+2020-06-20 21:31:14,316 INFO  [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 5.4.3.Final
+2020-06-20 21:31:14,969 INFO  [org.hibernate.orm.connections.access] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7afbf561] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-06-20 21:31:14,996 WARN  [org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl] GenerationTarget encountered exception accepting command : Error executing DDL "alter table enderecos drop foreign key FKifst74rmma55fhyky5g1l0589" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table enderecos drop foreign key FKifst74rmma55fhyky5g1l0589" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56) [hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79) [javax.persistence-api-2.2.jar:2.2]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54) [javax.persistence-api-2.2.jar:2.2]
+	at com.algaworks.Teste.main(Teste.java:12) [classes/:?]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'vendas_jsf.enderecos' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:118) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:95) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:790) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:675) ~[mysql-connector-java-8.0.11.jar:8.0.11]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.17.Final.jar:5.4.17.Final]
+	... 16 more
+2020-06-20 21:31:15,010 INFO  [org.hibernate.orm.connections.access] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4417af13] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-06-20 21:31:17,150 INFO  [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
