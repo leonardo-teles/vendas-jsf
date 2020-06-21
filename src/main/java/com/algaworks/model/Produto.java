@@ -3,17 +3,37 @@ package com.algaworks.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "produtos")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@Column(nullable = false, length = 80)
 	private String nome;
 	
-	private BigDecimal sku;
+	@Column(nullable = false, length = 20, unique = true)
+	private String sku;
 	
+	@Column(name = "valor_unitario", nullable = false, precision = 10, scale = 2)
+	private BigDecimal valorUnitario;
+	
+	@Column(nullable = false, length = 3)
 	private Integer quantidadeEstoque;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 
 	public Long getId() {
@@ -32,12 +52,20 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public BigDecimal getSku() {
+	public String getSku() {
 		return sku;
 	}
 
-	public void setSku(BigDecimal sku) {
-		this.sku = sku;
+	public void setSku(String sku) {
+		this.sku = sku == null ? null : sku.toUpperCase();
+	}
+
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 	public Integer getQuantidadeEstoque() {

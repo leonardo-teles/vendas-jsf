@@ -11,6 +11,12 @@
 		
 		<class>com.algaworks.model.Cliente</class>
 		<class>com.algaworks.model.Endereco</class>
+		<class>com.algaworks.model.Grupo</class>
+		<class>com.algaworks.model.Usuario</class>
+		<class>com.algaworks.model.Categoria</class>
+		<class>com.algaworks.model.Produto</class>
+		<class>com.algaworks.model.Pedido</class>
+		<class>com.algaworks.model.ItemPedido</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
