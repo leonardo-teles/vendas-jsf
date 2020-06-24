@@ -8,6 +8,11 @@
 	<ui:define name="titulo">Novo Produto</ui:define>
 	
 	<ui:define name="corpo">
+	
+		<f:metadata>
+    		<f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView" />
+    	</f:metadata>
+	
 		<h:form prependId="false">
 			<h1>Novo Produto</h1>
 			
@@ -36,6 +41,7 @@
 				<p:outputLabel value="Categoria" for="categoria"/>
 				<p:selectOneMenu id="categoria">
 					<f:selectItem itemLabel="Selecione a Categoria"/>
+					<f:selectItems value="#{cadastroProdutoBean.categoriasRaizes}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
 				</p:selectOneMenu>
 	
 				<p:outputLabel value="Subcategoria" for="subcategoria"/>
