@@ -4,19 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 import com.algaworks.exception.NegocioException;
+import com.algaworks.model.EnderecoEntrega;
+import com.algaworks.model.Pedido;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class CadastroPedidosBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<Integer> itens;
 	
+	private Pedido pedido;
+	
 	public CadastroPedidosBean() {
+		pedido = new Pedido();
+		pedido.setEnderecoEntrega(new EnderecoEntrega());
 		itens = new ArrayList<>();
 		itens.add(1);
 	}
@@ -28,5 +34,10 @@ public class CadastroPedidosBean implements Serializable {
 	public List<Integer> getItens() {
 		return itens;
 	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+	
 	
 }
