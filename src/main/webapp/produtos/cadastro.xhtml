@@ -11,6 +11,10 @@
 		<h:form prependId="false">
 			<h1>Novo Produto</h1>
 			
+			<p:messages id="messages" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:button icon="pi pi-plus" value="Novo" outcome="/produtos/cadastro"/>
@@ -43,7 +47,7 @@
 				<p:inputText id="valorUnitario" size="10" maxlength="10" styleClass="moeda"/>
 	
 				<p:outputLabel value="Estoque" for="estoque"/>
-				<p:inputText id="estoque" size="10" maxlength="4"/>
+				<p:inputText id="estoque" size="10" maxlength="5" value="#{cadastroProdutoBean.produto.quantidadeEstoque}"/>
 			</p:panelGrid>
 			
 		</h:form>

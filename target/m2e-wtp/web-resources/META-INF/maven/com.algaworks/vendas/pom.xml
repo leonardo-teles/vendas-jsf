@@ -29,14 +29,12 @@
   		<scope>compile</scope>
   	</dependency>
   	 
-  	 
   	<!-- Entity Manager --> 
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-entitymanager</artifactId>
 	    <version>5.4.17.Final</version>
 	</dependency>
-	  	 
 
 	<!-- Bean Validation -->
   	<dependency>
@@ -45,7 +43,6 @@
   		<version>5.4.3.Final</version>
   		<scope>compile</scope>
   	</dependency>
-  	 
 	
 	<!-- Weld Servlet - Implementação CDI -->
 	<dependency>
@@ -54,7 +51,6 @@
 	    <version>2.4.8.Final</version>
 	    <scope>compile</scope>
 	</dependency>
-	 
   	
   	<!-- MySQL -->
   	<dependency>
