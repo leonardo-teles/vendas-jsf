@@ -13,7 +13,7 @@ public class EnderecoEntrega implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotBlank
-	@Size(max = 20)
+	@Size(max = 150)
 	@Column(name = "entrega_logradouro", nullable = false, length = 150)
 	private String logradouro;
 

@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuarios")
@@ -23,12 +26,18 @@ public class Usuario implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
+	@NotBlank
+	@Size(max = 100)
 	@Column(nullable = false, length = 100)
 	private String nome;
 	
+	@NotBlank
+	@Size(max = 150)
 	@Column(nullable = false, length = 150, unique = true)
 	private String email;
 	
+	@NotBlank
+	@Size(max = 100)
 	@Column(nullable = false, length = 100)
 	private String senha;
 	

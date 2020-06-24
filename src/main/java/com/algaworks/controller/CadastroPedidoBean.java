@@ -13,14 +13,14 @@ import com.algaworks.model.Pedido;
 
 @Named
 @ViewScoped
-public class CadastroPedidosBean implements Serializable {
+public class CadastroPedidoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<Integer> itens;
 	
 	private Pedido pedido;
 	
-	public CadastroPedidosBean() {
+	public CadastroPedidoBean() {
 		pedido = new Pedido();
 		pedido.setEnderecoEntrega(new EnderecoEntrega());
 		itens = new ArrayList<>();
@@ -38,6 +38,4 @@ public class CadastroPedidosBean implements Serializable {
 	public Pedido getPedido() {
 		return pedido;
 	}
-	
-	
 }

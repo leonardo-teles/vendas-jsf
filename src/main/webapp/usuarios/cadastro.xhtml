@@ -11,6 +11,10 @@
 		<h:form prependId="false">
 			<h1>Novo Usuário</h1>
 			
+			<p:messages closable="true" id="msg">
+				<p:autoUpdate/>
+			</p:messages>
+			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:button icon="pi pi-plus" value="Novo" outcome="/usuarios/cadastro"/>
@@ -24,17 +28,17 @@
 			
 			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
 				<p:outputLabel value="Nome" for="nome"/>
-				<p:inputText id="nome" size="50" maxlength="80"/>
+				<p:inputText id="nome" size="50" maxlength="80" value="#{cadastroUsuarioBean.usuario.nome}"/>
 				
 				<p:outputLabel value="e-Mail" for="email"/>
-				<p:inputText id="email" size="50" maxlength="50"/>
+				<p:inputText id="email" size="50" maxlength="50" value="#{cadastroUsuarioBean.usuario.email}"/>
 	
 				<p:outputLabel value="Senha" for="senha"/>
-				<p:password id="senha" size="20" maxlength="10"/>
+				<p:password id="senha" size="20" maxlength="10" value="#{cadastroUsuarioBean.usuario.senha}"/>
 			</p:panelGrid>
 			
 			<p:panelGrid columns="2" styleClass="ui-noborder">
-				<p:selectOneMenu id="grupo">
+				<p:selectOneMenu id="grupo" value="#{cadastroUsuarioBean.usuario.grupos}">
 					<f:selectItem itemLabel="Administradores"/>
 				</p:selectOneMenu>
 			

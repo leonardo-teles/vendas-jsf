@@ -3,6 +3,10 @@ package com.algaworks.model;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "enderecos")
@@ -13,24 +17,36 @@ public class Endereco implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
+	@NotBlank
+	@Size(max = 150)
 	@Column(nullable = false, length = 150)
 	private String logradouro;
 	
+	@NotBlank
+	@Size(max = 20)
 	@Column(nullable = false, length = 20)
 	private String numero;
 	
+	@Size(max = 150)
 	@Column(length = 150)
 	private String complemento;
 	
+	@NotBlank
+	@Size(max = 60)
 	@Column(nullable = false, length = 60)
 	private String cidade;
 	
+	@NotBlank
+	@Size(max = 60)
 	@Column(nullable = false, length = 60)
 	private String uf;
 	
+	@NotBlank
+	@Size(max = 9)
 	@Column(nullable = false, length = 9)
 	private String cep;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
