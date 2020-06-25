@@ -3,6 +3,7 @@ package com.algaworks.service;
 import java.io.Serializable;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Produto;
@@ -13,7 +14,8 @@ public class ProdutoService implements Serializable {
 
 	@Inject
 	private ProdutoRepository produtoRepository;
-	
+
+	@Transactional
 	public Produto salvar(Produto produto) {
 		Produto produtoExistente = produtoRepository.buscarPorSku(produto.getSku());
 		

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 import com.algaworks.model.Produto;
@@ -16,14 +15,7 @@ public class ProdutoRepository implements Serializable {
 	private EntityManager manager;
 
 	public Produto adicionar(Produto produto) {
-		EntityTransaction trx = manager.getTransaction();
-		trx.begin();
-		
-		produto = manager.merge(produto);
-		
-		trx.commit();
-		
-		return produto;
+		return manager.merge(produto);
 	}
 
 	public Produto buscarPorSku(String sku) {
