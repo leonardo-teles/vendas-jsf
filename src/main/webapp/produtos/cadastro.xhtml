@@ -23,7 +23,7 @@
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:button icon="pi pi-plus" value="Novo" outcome="/produtos/cadastro"/>
-					<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}"/>
+					<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -46,7 +46,7 @@
 				</p:selectOneMenu>
 	
 				<p:outputLabel value="Subcategoria" for="subcategoria"/>
-				<p:selectOneMenu id="subcategoria"  value="#{cadastroProdutoBean.produto.categoria}">
+				<p:selectOneMenu id="subcategoria"  value="#{cadastroProdutoBean.produto.categoria}" converter="#{categoriaConverter}">
 					<f:selectItem itemLabel="Selecione a Subcategoria"/>
 					<f:selectItems value="#{cadastroProdutoBean.subcategorias}" var="subcategoria" itemValue="#{subcategoria}" itemLabel="#{subcategoria.descricao}"/>
 				</p:selectOneMenu>
