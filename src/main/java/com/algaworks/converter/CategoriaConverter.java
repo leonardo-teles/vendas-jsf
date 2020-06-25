@@ -3,22 +3,17 @@ package com.algaworks.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.algaworks.model.Categoria;
 import com.algaworks.repository.CategoriaRepository;
-import com.algaworks.util.cdi.CDIServiceLocator;
 
-@FacesConverter(forClass = Categoria.class)
+@Named
 public class CategoriaConverter implements Converter {
 
-	//@Inject
+	@Inject
 	private CategoriaRepository categoriaRepository;
-	
-	//retorna a instância de um Bean CDI para poder converter o objeto Categoria
-	public CategoriaConverter() {
-		categoriaRepository = CDIServiceLocator.getBean(CategoriaRepository.class);
-	}
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import com.algaworks.model.Categoria;
 import com.algaworks.model.Produto;
 import com.algaworks.repository.CategoriaRepository;
+import com.algaworks.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -26,19 +27,26 @@ public class CadastroProdutoBean implements Serializable {
 	private Categoria categoriaPai;
 	
 	private List<Categoria> categoriasRaizes;
+	private List<Categoria> subcategorias;
 	
 	public CadastroProdutoBean() {
 		produto = new Produto();
 	}
 	
 	public void inicializar() {
-		System.out.println("Inicializando o bean...");
-		
-		categoriasRaizes = categoriaRepository.buscarCategoriasRaizes();
+		if (FacesUtil.isNotPostback()) {
+			categoriasRaizes = categoriaRepository.buscarCategoriasRaizes();
+		}
 	}	
+	
+	public void carregarSubcategorias() {
+		subcategorias = categoriaRepository.carregarSubcategoriasDe(categoriaPai);
+	}
+	
 	
 	public void salvar() {
 		System.out.println("Categoria pai selecionada: " + categoriaPai.getDescricao());
+		System.out.println("SubCategoria selecionada: " + produto.getCategoria().getDescricao());
 	}
 
 	public Produto getProduto() {
@@ -47,6 +55,10 @@ public class CadastroProdutoBean implements Serializable {
 
 	public List<Categoria> getCategoriasRaizes() {
 		return categoriasRaizes;
+	}
+	
+	public List<Categoria> getSubcategorias() {
+		return subcategorias;
 	}
 
 	public Categoria getCategoriaPai() {
