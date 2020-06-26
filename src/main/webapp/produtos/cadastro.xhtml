@@ -3,18 +3,20 @@
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Novo Produto</ui:define>
+	<ui:define name="titulo">#{cadastroProdutoBean.editando ? 'Edição de Produto' : 'Novo Produto'}</ui:define>
 	
 	<ui:define name="corpo">
 	
 		<f:metadata>
+			<f:viewParam name="produto" value="#{cadastroProdutoBean.produto}" converter="#{produtoConverter}"/>
     		<f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView" />
     	</f:metadata>
 	
 		<h:form prependId="false">
-			<h1>Novo Produto</h1>
+			<h1>#{cadastroProdutoBean.editando ? 'Edição de Produto' : 'Novo Produto'}</h1>
 			
 			<p:messages id="messages" closable="true">
         		<p:autoUpdate />
@@ -22,12 +24,12 @@
 			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
-					<p:button icon="pi pi-plus" value="Novo" outcome="/produtos/cadastro"/>
-					<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}" update="@form"/>
+					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/produtos/cadastro"/>
+					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
-					<p:button icon="pi pi-search" value="Pesquisa" outcome="/produtos/pesquisa"/>
+					<p:button icon="fa fa-fw fa-search" value="Pesquisa" outcome="/produtos/pesquisa"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			

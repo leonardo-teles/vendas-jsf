@@ -3,11 +3,11 @@ package com.algaworks.service;
 import java.io.Serializable;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Produto;
 import com.algaworks.repository.ProdutoRepository;
+import com.algaworks.util.jpa.Transactional;
 
 public class ProdutoService implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class ProdutoService implements Serializable {
 	public Produto salvar(Produto produto) {
 		Produto produtoExistente = produtoRepository.buscarPorSku(produto.getSku());
 		
-		if (produtoExistente != null) {
+		if (produtoExistente != null && !produtoExistente.equals(produto)) {
 			throw new NegocioException("Já existe um produto com o SKU informado.");
 		}
 		

@@ -40,6 +40,10 @@ public class ProdutoRepository implements Serializable {
 			return null;
 		}
 	}
+
+	public Produto buscarProdutoPorId(Long id) {
+		return manager.find(Produto.class, id);
+	}
 	
 	public List<Produto> produtosFiltrados(ProdutoFilter filtro) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -66,22 +70,4 @@ public class ProdutoRepository implements Serializable {
 		
 		return query.getResultList();
 	}
-	
-	/*
-	 * @SuppressWarnings("unchecked") public List<Produto>
-	 * produtosFiltrados(ProdutoFilter filtro) { Session session =
-	 * manager.unwrap(Session.class);
-	 * 
-	 * @SuppressWarnings("deprecation") Criteria criteria =
-	 * session.createCriteria(Produto.class);
-	 * 
-	 * if (StringUtils.isNotBlank(filtro.getSku())) {
-	 * criteria.add(Restrictions.eq("sku", filtro.getSku())); }
-	 * 
-	 * if (StringUtils.isNotBlank(filtro.getNome())) {
-	 * criteria.add(Restrictions.ilike("nome", filtro.getNome(),
-	 * MatchMode.ANYWHERE)); }
-	 * 
-	 * return criteria.addOrder(Order.asc("nome")).list(); }
-	 */
 }

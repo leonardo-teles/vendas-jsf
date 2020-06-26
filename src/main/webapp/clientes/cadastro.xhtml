@@ -17,12 +17,12 @@
 			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
-					<p:button icon="pi pi-plus" value="Novo" outcome="/clientes/cadastro"/>
-					<p:commandButton icon="pi pi-save" value="Salvar" id="btnSalvar"/>
+					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/clientes/cadastro"/>
+					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
-					<p:button icon="pi pi-search" value="Pesquisa" outcome="/clientes/pesquisa"/>
+					<p:button icon="fa fa-fw fa-search" value="Pesquisa" outcome="/clientes/pesquisa"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			
@@ -43,7 +43,7 @@
 				<p:inputText id="email" size="30" maxlength="50" value="#{cadastroClienteBean.cliente.email}"/>
 			</p:panelGrid>
 			
-			<p:button icon="pi pi-plus" value="Adicionar Endereço" style="margin-bottom: 10px" onclick="PF('adicionarEndereco').show(); return false"/>
+			<p:button icon="fa fa-fw fa-plus" value="Adicionar Endereço" style="margin-bottom: 10px" onclick="PF('adicionarEndereco').show(); return false"/>
 			
 			<p:dialog header="Inclusão de endereço" widgetVar="adicionarEndereco" modal="true" resizable="false" draggable="false">
 
@@ -71,7 +71,7 @@
 					
 				</p:panelGrid>
 				
-				<p:commandButton icon="pi pi-plus" value="Incluir" oncomplete="PF('adicionarEndereco').hide()" />
+				<p:commandButton icon="fa fa-fw fa-plus" value="Incluir" oncomplete="PF('adicionarEndereco').hide()" />
 			</p:dialog>
 			
 			<p:dataTable value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum endereco encontrado."
@@ -97,8 +97,8 @@
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
-					<p:button icon="pi pi-pencil" title="Editar"/>
-					<p:commandButton icon="pi pi-trash" title="Excluir"/>
+					<p:button icon="fa fa-fw fa-edit" title="Editar"/>
+					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir"/>
 				</p:column>
 			</p:dataTable>
 			

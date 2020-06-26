@@ -41,6 +41,11 @@ public class CadastroProdutoBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 			categoriasRaizes = categoriaRepository.buscarCategoriasRaizes();
+			
+			//busca as subcategorias da categoria pai no momento da edição
+			if (this.categoriaPai != null) {
+				carregarSubcategorias();
+			}
 		}
 	}	
 	
@@ -65,6 +70,20 @@ public class CadastroProdutoBean implements Serializable {
 	
 	public Produto getProduto() {
 		return produto;
+	}
+	
+	//seta o valor da categoria pai no select no momento da edição do produto
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+		
+		if (this.produto != null) {
+			this.categoriaPai = this.produto.getCategoria().getCategoriaPai();
+		}
+	}
+	
+	//verifica a existência do id do objeto produto para saber se ele é novo ou não
+	public boolean isEditando() {
+		return this.produto.getId() != null;
 	}
 
 	public List<Categoria> getCategoriasRaizes() {
