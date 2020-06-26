@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,9 +18,11 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Categoria;
 import com.algaworks.model.Produto;
 import com.algaworks.repository.filter.ProdutoFilter;
+import com.algaworks.util.jpa.Transactional;
 
 public class ProdutoRepository implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,6 +41,17 @@ public class ProdutoRepository implements Serializable {
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
+		}
+	}
+	
+	@Transactional
+	public void remover(Produto produto) {
+		try {
+			produto = buscarProdutoPorId(produto.getId());
+			manager.remove(produto);
+			manager.flush();
+		} catch (PersistenceException e) {
+			throw new NegocioException("Produto não pode ser excluído");
 		}
 	}
 
