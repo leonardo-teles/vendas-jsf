@@ -8,7 +8,13 @@
 	<ui:define name="titulo">Novo Usuário</ui:define>
 	
 	<ui:define name="corpo">
-		<h:form prependId="false">
+	
+		<f:metadata>
+			<f:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}" converter="#{usuarioConverter}"/>
+    		<f:event listener="#{cadastroUsuarioBean.inicializar}" type="preRenderView" />
+    	</f:metadata>
+	
+		<h:form prependId="false" id="frmCadastro">
 			<h1>Novo Usuário</h1>
 			
 			<p:messages closable="true" id="msg">
@@ -18,7 +24,7 @@
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/usuarios/cadastro"/>
-					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar"/>
+					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar" action="#{cadastroUsuarioBean.salvar}" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -38,20 +44,42 @@
 			</p:panelGrid>
 			
 			<p:panelGrid columns="2" styleClass="ui-noborder">
-				<p:selectOneMenu id="grupo" value="#{cadastroUsuarioBean.usuario.grupos}">
-					<f:selectItem itemLabel="Administradores"/>
-				</p:selectOneMenu>
+				<p:selectManyMenu id="grupo" value="#{cadastroUsuarioBean.grupos}" converter="#{grupoConverter}">
+					<f:selectItem itemLabel="Selecione o Grupo"/>
+					<f:selectItems value="#{cadastroUsuarioBean.grupos}" var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.nome}"/>
+				</p:selectManyMenu>
 			
-				<p:button icon="fa fa-fw fa-plus" value="Adicionar Grupo"/>			
+				<p:button icon="fa fa-fw fa-plus" value="Adicionar Grupo" onclick="PF('adicionarGrupo').show(); return false"/>			
 			</p:panelGrid>
 			
-			<p:dataTable value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="usuario" emptyMessage="Nenhum grupo encontrado."
+			<p:dialog header="Inclusão de Grupo" widgetVar="adicionarGrupo" modal="true" resizable="false" draggable="false">
+
+				<p:panelGrid columns="2" columnClasses="rotulo, campo" styleClass="ui-noborder">
+					<p:outputLabel value="Nome" for="nomeGrupo"/>
+					<p:inputText id="nomeGrupo" size="30" maxlength="100"/>
+					
+					<p:outputLabel value="Descrição" for="descricaoGrupo"/>
+					<p:inputText id="descricaoGrupo" size="60"/>
+				</p:panelGrid>
+				
+				<p:commandButton icon="fa fa-fw fa-plus" value="Incluir" oncomplete="PF('adicionarGrupo').hide()" />
+			</p:dialog>			
+			
+			
+			<p:dataTable id="gruposTable" value="#{cadastroUsuarioBean.grupos}" var="grupo" emptyMessage="Nenhum grupo encontrado."
 						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-				<p:column headerText="Grupo">
-					<h:outputText value="Auxiliares"/>
+
+				<p:column headerText="Grupo" style="width: 170px">
+					<h:outputText value="#{grupo.nome}"/>
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{grupo.descricao}"/>
 				</p:column>
 			
-				<p:column headerText="Ação" style="text-align: center; width: 50px">
+				<p:column headerText="Ações" style="text-align: center; width: 100px">
+					<p:button icon="fa fa-fw fa-edit" title="Editar"/>
+				
 					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir"/>
 				</p:column>
 			</p:dataTable>

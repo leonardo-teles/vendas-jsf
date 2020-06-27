@@ -8,22 +8,22 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.algaworks.model.Categoria;
-import com.algaworks.repository.CategoriaRepository;
+import com.algaworks.model.Grupo;
+import com.algaworks.repository.GrupoRepository;
 
 @Named
-public class CategoriaConverter implements Converter {
+public class GrupoConverter implements Converter {
 
 	@Inject
-	private CategoriaRepository categoriaRepository;
+	private GrupoRepository grupoRepository;
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Categoria retorno = null;
+		Grupo retorno = null;
 		
 		if (StringUtils.isNotEmpty(value)) {
 			Long id = new Long(value);
-			retorno = categoriaRepository.buscarCategoriaPorId(id);
+			retorno = grupoRepository.buscarGrupoPorId(id);
 		}
 		
 		return retorno;
@@ -32,9 +32,9 @@ public class CategoriaConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			Categoria categoria = (Categoria) value;
+			Grupo grupo = (Grupo) value;
 			
-			return categoria.getId() == null ? null : categoria.getId().toString();
+			return grupo.getId() == null ? null : grupo.getId().toString();
 		}
 		
 		return "";

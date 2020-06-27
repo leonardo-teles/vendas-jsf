@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
 	@Column(nullable = false, length = 150, unique = true)
 	private String email;
 	
-	@NotBlank
+	@NotBlank(message = "deve ser informada.")
 	@Size(max = 100)
 	@Column(nullable = false, length = 100)
 	private String senha;
