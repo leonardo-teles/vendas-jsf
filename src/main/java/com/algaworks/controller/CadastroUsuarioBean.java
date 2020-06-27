@@ -31,6 +31,7 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	@NotNull
 	private List<Grupo> grupos;
+	private String[] gruposSelecionados;
 	
 	private Grupo grupoSelecionado;
 	private boolean editandoGrupo;
@@ -51,7 +52,6 @@ public class CadastroUsuarioBean implements Serializable {
 			grupos = grupoRepository.listarTodosOsGrupos();
 		}
 	}
-	
 	
 	//salva um novo grupo
 	public void salvarGrupo() {
@@ -94,6 +94,14 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+	
+	public String[] getGruposSelecionados() {
+		return gruposSelecionados;
+	}
+
+	public void setGruposSelecionados(String[] gruposSelecionados) {
+		this.gruposSelecionados = gruposSelecionados;
 	}
 
 	public boolean isEditandoGrupo() {

@@ -8,12 +8,12 @@
 	<ui:define name="titulo">Pesquisar Usuários</ui:define>
 	
 	<ui:define name="corpo">
-		<h:form prependId="false">
+		<h:form prependId="false" id="frmPesquisa">
 			<h1>Pesquisar Usuários</h1>
 			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
-					<p:button icon="fa fa-fw fa-search" value="Pesquisa" outcome="/usuarios/pesquisa"/>
+					<p:commandButton icon="fa fa-fw fa-search" value="Pesquisa" action="#{pesquisaUsuariosBean.pesquisar}" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -23,17 +23,17 @@
 			
 			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
 				<p:outputLabel value="Nome" for="nome"/>
-				<p:inputText id="nome" size="60" maxlength="80"/>
+				<p:inputText id="nome" size="50" value="#{pesquisaUsuariosBean.filtro.nome}"/>
 			</p:panelGrid>
 			
-			<p:dataTable value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="usuario" emptyMessage="Nenhum usuário encontrado."
+			<p:dataTable id="usuariosTable" value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="usuario" emptyMessage="Nenhum usuário encontrado."
 						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				<p:column headerText="Nome">
-					<h:outputText value="João da Silva"/>
+					<h:outputText value="#{usuario.nome}"/>
 				</p:column>
 			
 				<p:column headerText="e-Mail">
-					<h:outputText value="joao.silva@email.com"/>
+					<h:outputText value="#{usuario.email}"/>
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">

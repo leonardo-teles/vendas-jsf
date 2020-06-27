@@ -44,12 +44,14 @@
 			</p:panelGrid>
 			
 			<p:panelGrid columns="2" styleClass="ui-noborder">
-				<p:selectManyMenu id="grupo" value="#{cadastroUsuarioBean.grupos}" converter="#{grupoConverter}">
-					<f:selectItem itemLabel="Selecione o Grupo"/>
+
+				<p:selectCheckboxMenu id="menu" value="#{cadastroUsuarioBean.gruposSelecionados}" label="Grupo(s)" style="width: 160px" 
+				                      filter="true" filterMatchMode="contains" panelStyle="width:255px" converter="#{grupoConverter}">
 					<f:selectItems value="#{cadastroUsuarioBean.grupos}" var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.nome}"/>
-				</p:selectManyMenu>
-			
+				</p:selectCheckboxMenu>
+
 				<p:button icon="fa fa-fw fa-plus" value="Adicionar Grupo" onclick="PF('adicionarGrupo').show(); return false"/>			
+			
 			</p:panelGrid>
 			
 			<p:dialog header="Inclusão de Grupo" widgetVar="adicionarGrupo" modal="true" resizable="false" draggable="false">
