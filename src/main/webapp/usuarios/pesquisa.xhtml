@@ -11,6 +11,10 @@
 		<h:form prependId="false" id="frmPesquisa">
 			<h1>Pesquisar Usuários</h1>
 			
+			<p:messages id="messages" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:commandButton icon="fa fa-fw fa-search" value="Pesquisa" action="#{pesquisaUsuariosBean.pesquisar}" update="@form"/>
@@ -37,10 +41,22 @@
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
-					<p:button icon="fa fa-fw fa-edit" title="Editar"/>
-					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir"/>
+					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/usuarios/cadastro">
+						<f:param name="usuario" value="#{usuario.id}"/>
+					</p:button>
+					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" 
+									 process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener value="#{usuario}" target="#{pesquisaUsuariosBean.usuarioSelecionado}"/>
+					</p:commandButton>					
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de Usuário" widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog" 
+			                 message="Tem certeza que deseja excluir o usuário #{pesquisaUsuariosBean.usuarioSelecionado.nome}?">
+				<p:button icon="fa fa-fw fa-ban" value="Não" onclick="PF('confirmacaoExclusao').hide(); return false"/>
+				<p:commandButton icon="fa fa-fw fa-trash" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" 
+				                 action="#{pesquisaUsuariosBean.excluir}" process="@this" update=":frmPesquisa:painel :frmPesquisa:usuariosTable"/>
+			</p:confirmDialog>			
 			
 		</h:form>
 	</ui:define>

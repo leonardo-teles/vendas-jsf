@@ -31,11 +31,8 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	@NotNull
 	private List<Grupo> grupos;
-	private String[] gruposSelecionados;
+	private List<Grupo> gruposSelecionados;
 	
-	private Grupo grupoSelecionado;
-	private boolean editandoGrupo;
-
 	public CadastroUsuarioBean() {
 		limpar();
 	}
@@ -50,26 +47,24 @@ public class CadastroUsuarioBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 			grupos = grupoRepository.listarTodosOsGrupos();
+			
+			if (isEditando()) {
+				gruposSelecionados = usuario.getGrupos();
+			}
 		}
 	}
 	
-	//salva um novo grupo
-	public void salvarGrupo() {
-		if (editandoGrupo) {
-			grupos.set(grupos.indexOf(grupo), grupo);
-			grupo = new Grupo();
-		} else {
-			grupos.add(grupo);
-			grupo = new Grupo();
-		}
-	}
-	
-	//salva um novo produto
+	//salva um novo usuário
 	public void salvar() {
-		this.usuario.setGrupos(grupos);
+		this.usuario.setGrupos(gruposSelecionados);
 		this.usuario = usuarioService.salvar(this.usuario);
 		limpar();
 		FacesUtil.addInfoMessage("Usuário salvo com sucesso.");
+	}
+	
+	//verifica a existência do id do objeto usuário para saber se ele é novo ou não
+	public boolean isEditando() {
+		return this.usuario.getId() != null;
 	}
 	
 	public Usuario getUsuario() {
@@ -96,23 +91,11 @@ public class CadastroUsuarioBean implements Serializable {
 		this.grupos = grupos;
 	}
 	
-	public String[] getGruposSelecionados() {
+	public List<Grupo> getGruposSelecionados() {
 		return gruposSelecionados;
 	}
 
-	public void setGruposSelecionados(String[] gruposSelecionados) {
+	public void setGruposSelecionados(List<Grupo> gruposSelecionados) {
 		this.gruposSelecionados = gruposSelecionados;
-	}
-
-	public boolean isEditandoGrupo() {
-		return editandoGrupo;
-	}
-
-	public Grupo getGrupoSelecionado() {
-		return grupoSelecionado;
-	}
-
-	public void setGrupoSelecionado(Grupo grupoSelecionado) {
-		this.grupoSelecionado = grupoSelecionado;
 	}
 }

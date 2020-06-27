@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -41,9 +41,10 @@ public class Usuario implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String senha;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"),
-			   inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	@NotNull(message = "deve ser informado.")
+	@ManyToMany
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id", nullable = false),
+			   inverseJoinColumns = @JoinColumn(name = "grupo_id", nullable = false))
 	private List<Grupo> grupos = new ArrayList<>();
 
 	public Long getId() {

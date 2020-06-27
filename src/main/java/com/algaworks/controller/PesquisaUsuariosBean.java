@@ -9,8 +9,8 @@ import javax.inject.Named;
 
 import com.algaworks.model.Usuario;
 import com.algaworks.repository.UsuarioRepository;
-import com.algaworks.repository.filter.ProdutoFilter;
 import com.algaworks.repository.filter.UsuarioFilter;
+import com.algaworks.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -31,6 +31,15 @@ public class PesquisaUsuariosBean implements Serializable {
 	//realiza a pesquisa de usuários com filtro
 	public void pesquisar() {
 		usuariosFiltrados = usuarioRepository.usuariosFiltrados(filtro);
+	}
+	
+	//remove um usuário
+	public void excluir() {
+		usuarioRepository.remover(usuarioSelecionado);
+		usuariosFiltrados.remove(usuarioSelecionado);
+		limpar();
+
+		FacesUtil.addInfoMessage("Usuário " + usuarioSelecionado.getNome() + " excluído com sucesso.");
 	}
 	
 	//limpa os dados da tela após excluir um usuário que foi buscado
