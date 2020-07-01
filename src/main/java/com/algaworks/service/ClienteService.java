@@ -16,7 +16,7 @@ public class ClienteService implements Serializable {
 	private ClienteRepository clienteRepository;
 	
 	@Transactional
-	public Cliente salvar(Cliente cliente) {
+	public Cliente salvar(Cliente cliente) throws NegocioException {
 		Cliente clienteExistente = clienteRepository.buscarClientePeloEmail(cliente.getEmail());
 		
 		if (clienteExistente != null && !clienteExistente.equals(cliente)) {

@@ -16,7 +16,7 @@ public class GrupoService implements Serializable {
 	private GrupoRepository grupoRepository;
 	
 	@Transactional
-	public Grupo salvar(Grupo grupo) {
+	public Grupo salvar(Grupo grupo) throws NegocioException {
 		Grupo grupoExistente = grupoRepository.buscarGrupoPeloNome(grupo.getNome());
 		
 		if (grupoExistente != null && !grupoExistente.equals(grupo)) {

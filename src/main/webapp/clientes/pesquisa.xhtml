@@ -8,6 +8,7 @@
 	<ui:define name="titulo">Pesquisar Clientes</ui:define>
 	
 	<ui:define name="corpo">
+	
 		<h:form prependId="false" id="frmPesquisa">
 			<h1>Pesquisar Clientes</h1>
 			
@@ -27,7 +28,7 @@
 			
 			<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo" styleClass="ui-noborder">
 				<p:outputLabel value="CPF/CNPJ" for="cpfCnpj"/>
-				<p:inputText id="cpfCnpj" size="30" value="#{pesquisaClientesBean.filtro.documentoReceitaFederal}"/>
+				<p:inputText id="cpfCnpj" size="30" value="#{pesquisaClientesBean.filtro.documentoReceitaFederal}" converter="cpfCnpjMask"/>
 				
 				<p:outputLabel value="Nome" for="nome"/>
 				<p:inputText id="nome" size="50" value="#{pesquisaClientesBean.filtro.nome}"/>
@@ -48,7 +49,7 @@
 				</p:column>
 
 				<p:column headerText="CPF/CNPJ" style="text-align: center; width: 140px">
-					<h:outputText value="#{cliente.documentoReceitaFederal}"/>
+					<h:outputText value="#{cliente.documentoReceitaFederal}" converter="cpfCnpjMask"/>
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">

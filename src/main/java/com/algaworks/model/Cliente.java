@@ -9,6 +9,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.algaworks.model.validation.CnpjGroup;
+import com.algaworks.model.validation.CpfGroup;
 
 @Entity
 @Table(name = "clientes")
@@ -29,7 +34,9 @@ public class Cliente implements Serializable {
 	@Column(nullable = false)
 	private String email;
 
-	@NotBlank
+	@CPF(groups = CpfGroup.class)
+	@CNPJ(groups = CnpjGroup.class)
+	@NotNull
 	@Size(max = 18)
 	@Column(name = "doc_receita_federal", nullable = false, length = 18)
 	private String documentoReceitaFederal;
@@ -40,8 +47,8 @@ public class Cliente implements Serializable {
 	private TipoPessoa tipo;
 
 	@NotNull
-	@OneToMany(mappedBy = "cliente", cascade =  CascadeType.ALL)
-	private List<Endereco> enderecos = new ArrayList<>();
+	@OneToMany(mappedBy = "cliente", cascade =  CascadeType.ALL, orphanRemoval = true)
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	public Long getId() {
 		return id;

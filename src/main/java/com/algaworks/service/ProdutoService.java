@@ -16,7 +16,7 @@ public class ProdutoService implements Serializable {
 	private ProdutoRepository produtoRepository;
 
 	@Transactional
-	public Produto salvar(Produto produto) {
+	public Produto salvar(Produto produto) throws NegocioException {
 		Produto produtoExistente = produtoRepository.buscarPorSku(produto.getSku());
 		
 		if (produtoExistente != null && !produtoExistente.equals(produto)) {
