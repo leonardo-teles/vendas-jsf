@@ -33,10 +33,14 @@
 				<p:inputText id="nome" size="50" value="#{pesquisaClientesBean.filtro.nome}"/>
 			</p:panelGrid>
 			
-			<p:dataTable value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum cliente encontrado."
+			<p:dataTable id="clientesTable" value="#{pesquisaClientesBean.clientesFiltrados}" var="cliente" emptyMessage="Nenhum cliente encontrado."
 						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				<p:column headerText="Nome">
 					<h:outputText value="#{cliente.nome}"/>
+				</p:column>
+
+				<p:column headerText="e-Mail">
+					<h:outputText value="#{cliente.email}"/>
 				</p:column>
 			
 				<p:column headerText="Tipo" style="text-align: center; width: 120px">
@@ -48,10 +52,22 @@
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
-					<p:button icon="fa fa-fw fa-edit" title="Editar"/>
-					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir"/>
+					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/clientes/cadastro">
+						<f:param name="cliente" value="#{cliente.id}"/>
+					</p:button>
+					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" 
+									 process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener value="#{cliente}" target="#{pesquisaClientesBean.clienteSelecionado}"/>
+					</p:commandButton>					
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de Cliente" widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog" 
+			                 message="Tem certeza que deseja excluir o cliente #{pesquisaClientesBean.clienteSelecionado.nome}?">
+				<p:button icon="fa fa-fw fa-ban" value="Não" onclick="PF('confirmacaoExclusao').hide(); return false"/>
+				<p:commandButton icon="fa fa-fw fa-trash" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" 
+				                 action="#{pesquisaClientesBean.excluir}" process="@this" update=":frmPesquisa:painel :frmPesquisa:clientesTable"/>
+			</p:confirmDialog>			
 			
 		</h:form>
 	</ui:define>

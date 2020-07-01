@@ -38,6 +38,11 @@ public class CadastroClienteBean implements Serializable {
 		FacesUtil.addInfoMessage("Cliente salvo com sucesso.");
 	}
 	
+	//verifica a existência do id do objeto usuário para saber se ele é novo ou não
+	public boolean isEditando() {
+		return this.cliente.getId() != null;
+	}	
+	
 	//retorno dos tipos de pessoa na tela
 	public TipoPessoa[] getTipos() {
 		return TipoPessoa.values();

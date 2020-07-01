@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,8 +16,10 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Cliente;
 import com.algaworks.repository.filter.ClienteFilter;
+import com.algaworks.util.jpa.Transactional;
 
 public class ClienteRepository implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +39,21 @@ public class ClienteRepository implements Serializable {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	@Transactional
+	public void remover(Cliente cliente) {
+		try {
+			cliente = buscarClientePorId(cliente.getId());
+			manager.remove(cliente);
+			manager.flush();
+		} catch (PersistenceException e) {
+			throw new NegocioException("Cliente não pode ser excluído");
+		}
+	}
+	
+	public Cliente buscarClientePorId(Long id) {
+		return manager.find(Cliente.class, id);
 	}
 	
 	public List<Cliente> clientesFiltrados(ClienteFilter filtro) {

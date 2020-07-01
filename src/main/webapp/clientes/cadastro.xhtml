@@ -5,11 +5,16 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Novo Cliente</ui:define>
+	<ui:define name="titulo">#{cadastroClienteBean.editando ? 'Edição de Cliente' : 'Novo Cliente'}</ui:define>
 	
 	<ui:define name="corpo">
-		<h:form prependId="false">
-			<h1>Novo Cliente</h1>
+	
+		<f:metadata>
+			<f:viewParam name="cliente" value="#{cadastroClienteBean.cliente}" converter="#{clienteConverter}"/>
+    	</f:metadata>
+	
+		<h:form prependId="false" id="frmCadastro">
+			<h1>#{cadastroClienteBean.editando ? 'Edição de Cliente' : 'Novo Cliente'}</h1>
 			
 			<p:messages closable="true" id="msg">
 				<p:autoUpdate/>

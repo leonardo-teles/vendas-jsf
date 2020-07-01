@@ -10,6 +10,7 @@ import javax.inject.Named;
 import com.algaworks.model.Cliente;
 import com.algaworks.repository.ClienteRepository;
 import com.algaworks.repository.filter.ClienteFilter;
+import com.algaworks.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -21,6 +22,7 @@ public class PesquisaClientesBean implements Serializable {
 
 	private ClienteFilter filtro;
 	private List<Cliente> clientesFiltrados;
+	private Cliente clienteSelecionado;
 	
 	public PesquisaClientesBean() {
 		limpar();
@@ -29,6 +31,15 @@ public class PesquisaClientesBean implements Serializable {
 	//realiza a pesquisa de clientes com filtro
 	public void pesquisar() {
 		clientesFiltrados = clienteRepository.clientesFiltrados(filtro);
+	}
+	
+	//remove um usuário
+	public void excluir() {
+		clienteRepository.remover(clienteSelecionado);
+		clientesFiltrados.remove(clienteSelecionado);
+		limpar();
+
+		FacesUtil.addInfoMessage("Cliente " + clienteSelecionado.getNome() + " excluído com sucesso.");
 	}
 	
 	//limpa os dados da tela após excluir um cliente que foi buscado
@@ -42,5 +53,13 @@ public class PesquisaClientesBean implements Serializable {
 
 	public ClienteFilter getFiltro() {
 		return filtro;
+	}
+
+	public Cliente getClienteSelecionado() {
+		return clienteSelecionado;
+	}
+
+	public void setClienteSelecionado(Cliente clienteSelecionado) {
+		this.clienteSelecionado = clienteSelecionado;
 	}
 }
