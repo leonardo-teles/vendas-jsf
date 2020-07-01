@@ -1,12 +1,22 @@
 package com.algaworks.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.algaworks.model.Cliente;
+import com.algaworks.repository.filter.ClienteFilter;
 
 public class ClienteRepository implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,4 +37,30 @@ public class ClienteRepository implements Serializable {
 			return null;
 		}
 	}
+	
+	public List<Cliente> clientesFiltrados(ClienteFilter filtro) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Cliente> criteriaQuery = builder.createQuery(Cliente.class);
+		List<Predicate> predicates = new ArrayList<>();
+
+		Root<Cliente> clienteRoot = criteriaQuery.from(Cliente.class);
+
+		if (StringUtils.isNotBlank(filtro.getNome())) {
+			predicates.add(
+					builder.like(builder.lower(clienteRoot.get("nome")), "%" + filtro.getNome().toLowerCase() + "%"));
+		}
+
+		if (StringUtils.isNotBlank(filtro.getDocumentoReceitaFederal())) {
+			predicates.add(builder.equal(clienteRoot.get("documentoReceitaFederal"), filtro.getDocumentoReceitaFederal()));
+		}
+
+		criteriaQuery.select(clienteRoot);
+		criteriaQuery.where(predicates.toArray(new Predicate[0]));
+		criteriaQuery.orderBy(builder.asc(clienteRoot.get("nome")));
+
+		TypedQuery<Cliente> query = manager.createQuery(criteriaQuery);
+
+		return query.getResultList();
+	}
+	 
 }

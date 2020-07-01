@@ -30,8 +30,8 @@ public class Cliente implements Serializable {
 	private String email;
 
 	@NotBlank
-	@Size(max = 14)
-	@Column(name = "doc_receita_federal", nullable = false, length = 14)
+	@Size(max = 18)
+	@Column(name = "doc_receita_federal", nullable = false, length = 18)
 	private String documentoReceitaFederal;
 	
 	@NotNull

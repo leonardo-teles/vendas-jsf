@@ -40,6 +40,10 @@
 					<h:outputText value="#{usuario.email}"/>
 				</p:column>
 
+				<p:column headerText="Grupo(s)" style="text-align: center; width: 300px">
+					<h:outputText value="#{usuario.grupos}"/>
+				</p:column>
+
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
 					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/usuarios/cadastro">
 						<f:param name="usuario" value="#{usuario.id}"/>
