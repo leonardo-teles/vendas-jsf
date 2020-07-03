@@ -14,7 +14,7 @@
 			<f:event listener="#{cadastroPedidoBean.inicializar}" type="preRenderView" />
     	</f:metadata>
 	
-		<h:form id="formPedidos">
+		<h:form id="frmCadastro">
 			<h1>#{cadastroPedidoBean.editando ? 'Edição de Pedido' : 'Novo Pedido'}</h1>
 			
 			<p:messages closable="true" id="msg">
@@ -27,7 +27,7 @@
 			
 			<p:tabView style="margin-top: 20px">
 				<p:tab title="Itens">
-					<!-- <ui:include src="/WEB-INF/templates/pedidos/itens.xhtml"/> -->
+					<ui:include src="/WEB-INF/templates/pedidos/itens.xhtml"/>
 				</p:tab>
 				
 				<p:tab title="Dados de Entrega">

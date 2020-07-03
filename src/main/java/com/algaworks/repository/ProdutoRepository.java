@@ -58,6 +58,12 @@ public class ProdutoRepository implements Serializable {
 	public Produto buscarProdutoPorId(Long id) {
 		return manager.find(Produto.class, id);
 	}
+
+	public List<Produto> buscarProdutoPorNome(String nome) {
+		return this.manager.createQuery("from Produto where upper(nome) like :nome", Produto.class)
+				.setParameter("nome", nome.toUpperCase() + "%")
+				.getResultList();
+	}
 	
 	public List<Produto> produtosFiltrados(ProdutoFilter filtro) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
