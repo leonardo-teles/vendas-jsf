@@ -42,6 +42,8 @@ public class CadastroPedidoBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 			this.vendedores = usuarioRepository.vendedores();
+			
+			this.recalcularPedido();
 		}
 	}
 	
@@ -56,6 +58,13 @@ public class CadastroPedidoBean implements Serializable {
 		this.pedido = this.pedidoService.salvar(this.pedido);
 		
 		FacesUtil.addInfoMessage("Pedido salvo com sucesso.");
+	}
+	
+	//calcula o valor total de um pedido
+	public void recalcularPedido() {
+		if (this.pedido != null) {
+			this.pedido.recalcularValorTotal();
+		}
 	}
 	
 	//lista os nomes dos clientes pelo autocomplete

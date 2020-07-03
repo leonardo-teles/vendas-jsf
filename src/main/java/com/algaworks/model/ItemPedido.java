@@ -68,6 +68,11 @@ public class ItemPedido implements Serializable {
 		this.pedido = pedido;
 	}
 
+	@Transient
+	public BigDecimal getValorTotal() {
+		return this.getValorUnitario().multiply(new BigDecimal(this.getQuantidade()));
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
