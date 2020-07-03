@@ -8,6 +8,11 @@
 	<ui:define name="titulo">Novo Pedido</ui:define>
 	
 	<ui:define name="corpo">
+	
+		<f:metadata>
+			<f:event listener="#{cadastroPedidoBean.inicializar}" type="preRenderView" />
+    	</f:metadata>
+	
 		<h:form id="formPedidos">
 			<h1>Novo Pedido</h1>
 			
@@ -21,7 +26,7 @@
 			
 			<p:tabView style="margin-top: 20px">
 				<p:tab title="Itens">
-					<ui:include src="/WEB-INF/templates/pedidos/itens.xhtml"/>
+					<!-- <ui:include src="/WEB-INF/templates/pedidos/itens.xhtml"/> -->
 				</p:tab>
 				
 				<p:tab title="Dados de Entrega">

@@ -25,6 +25,10 @@ public class PedidoRepository implements Serializable {
 	
 	@Inject
 	private EntityManager manager;
+	
+	public Pedido adicionar(Pedido pedido) {
+		return manager.merge(pedido);
+	}
 
 	public List<Pedido> filtrados(PedidoFilter filtro) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();

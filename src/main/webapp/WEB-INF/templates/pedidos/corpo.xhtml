@@ -5,31 +5,32 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-	<p:panelGrid columns="4" id="painel" columnClasses="rotulo, campo, rotulo, campo" styleClass="ui-noborder">
-		<p:outputLabel value="Número"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.id}"/>
+	<p:panelGrid columns="4" style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo" styleClass="ui-noborder">
+		<p:outputLabel value="Número" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.id}" rendered="#{cadastroPedidoBean.pedido.existente}"/>
 		
-		<p:outputLabel value="Data de Criação"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.dataCriacao}">
+		<p:outputLabel value="Data de Criação" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.dataCriacao}" rendered="#{cadastroPedidoBean.pedido.existente}">
 			<f:convertDateTime pattern="dd/MM/yyyy"/>
 		</h:outputText>
 		
 		<p:outputLabel value="Status"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.status}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.status.descricao}"/>
 		
 		<p:outputLabel value="Vendedor" for="vendedor"/>
-		<p:selectOneMenu id="vendedor" value="#{cadastroPedidoBean.pedido.vendedor}">
+		<p:selectOneMenu id="vendedor" value="#{cadastroPedidoBean.pedido.vendedor}" converter="#{usuarioConverter}">
 			<f:selectItem itemLabel="Selecione"/>
-			<f:selectItem itemLabel="João das Couves Júnior"/>
+			<f:selectItems value="#{cadastroPedidoBean.vendedores}" var="vendedor" itemValue="#{vendedor}" itemLabel="#{vendedor.nome}"/>
 		</p:selectOneMenu>
 		
 		<p:outputLabel value="Cliente" for="cliente"/>
-		<p:autoComplete id="cliente" size="40" dropdown="true" value="#{cadastroPedidoBean.pedido.cliente}"/>
-		
+		<p:autoComplete id="cliente" value="#{cadastroPedidoBean.pedido.cliente}" completeMethod="#{cadastroPedidoBean.completarCliente}" dropdown="true"
+                        var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" converter="#{clienteConverter}" forceSelection="true" size="40"/>        				
+        				
 		<p:outputLabel value="Forma de Pagamento" for="formaPagamento"/>
 		<p:selectOneMenu id="formaPagamento" value="#{cadastroPedidoBean.pedido.formaPagamento}">
 			<f:selectItem itemLabel="Selecione"/>
-			<f:selectItem itemLabel="Cartão de Crédito"/>
+			<f:selectItems value="#{cadastroPedidoBean.formasPagamento}" var="formaPagamento" itemValue="#{formaPagamento}" itemLabel="#{formaPagamento.descricao}"/>
 		</p:selectOneMenu>
 	
 		<p:outputLabel value="Valor do Frete" for="valorFrete"/>

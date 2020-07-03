@@ -44,10 +44,9 @@ h1 {
 }
 
 #painel {
-	width: 100%;
+	width: 100% !important;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	border: none !important;
 }
 
 .rotulo {
