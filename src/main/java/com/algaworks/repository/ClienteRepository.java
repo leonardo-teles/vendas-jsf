@@ -64,8 +64,7 @@ public class ClienteRepository implements Serializable {
 		Root<Cliente> clienteRoot = criteriaQuery.from(Cliente.class);
 
 		if (StringUtils.isNotBlank(filtro.getNome())) {
-			predicates.add(
-					builder.like(builder.lower(clienteRoot.get("nome")), "%" + filtro.getNome().toLowerCase() + "%"));
+			predicates.add(builder.like(builder.lower(clienteRoot.get("nome")), "%" + filtro.getNome().toLowerCase() + "%"));
 		}
 
 		if (StringUtils.isNotBlank(filtro.getDocumentoReceitaFederal())) {
