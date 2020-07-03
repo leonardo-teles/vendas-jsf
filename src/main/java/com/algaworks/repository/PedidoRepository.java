@@ -29,6 +29,10 @@ public class PedidoRepository implements Serializable {
 	public Pedido adicionar(Pedido pedido) {
 		return manager.merge(pedido);
 	}
+	
+	public Pedido buscarPedidoPorId(Long id) {
+		return manager.find(Pedido.class, id);
+	}
 
 	public List<Pedido> filtrados(PedidoFilter filtro) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();

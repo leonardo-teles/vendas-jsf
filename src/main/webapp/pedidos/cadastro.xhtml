@@ -5,16 +5,17 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Novo Pedido</ui:define>
+	<ui:define name="titulo">#{cadastroPedidoBean.editando ? 'Edição de Pedido' : 'Novo Pedido'}</ui:define>
 	
 	<ui:define name="corpo">
 	
 		<f:metadata>
+			<f:viewParam name="pedido" value="#{cadastroPedidoBean.pedido}" converter="#{pedidoConverter}"/>
 			<f:event listener="#{cadastroPedidoBean.inicializar}" type="preRenderView" />
     	</f:metadata>
 	
 		<h:form id="formPedidos">
-			<h1>Novo Pedido</h1>
+			<h1>#{cadastroPedidoBean.editando ? 'Edição de Pedido' : 'Novo Pedido'}</h1>
 			
 			<p:messages closable="true" id="msg">
 				<p:autoUpdate/>

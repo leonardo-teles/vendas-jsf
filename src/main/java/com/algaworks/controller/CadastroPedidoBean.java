@@ -63,6 +63,11 @@ public class CadastroPedidoBean implements Serializable {
 		return this.clienteRepository.buscarPorNome(nome);
 	}
 	
+	//verifica a existência do id do objeto produto para saber se ele é novo ou não
+	public boolean isEditando() {
+		return this.pedido.getId() != null;
+	}
+	
 	//lista as foras de pagamento
 	public FormaPagamento[] getFormasPagamento() {
 		return FormaPagamento.values();
@@ -70,6 +75,10 @@ public class CadastroPedidoBean implements Serializable {
 	
 	public Pedido getPedido() {
 		return pedido;
+	}
+	
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	public List<Usuario> getVendedores() {
