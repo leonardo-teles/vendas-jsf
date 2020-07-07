@@ -246,6 +246,11 @@ public class Pedido implements Serializable {
 	public boolean isValorTotalNegativo() {
 		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
 	}
+	
+	@Transient
+	public boolean isEmitido() {
+		return StatusPedido.EMITIDO.equals(this.getStatus());
+	}
 
 	@Override
 	public int hashCode() {

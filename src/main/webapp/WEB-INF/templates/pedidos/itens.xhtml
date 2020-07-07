@@ -36,12 +36,14 @@
 		<p:column headerText="Quantidade" style="text-align: center; width: 100px">
 			<p:inputText size="7" value="#{item.quantidade}">
 				<p:ajax event="change" process="@this" update="itensTable :frmCadastro:totalPedido :frmCadastro:subtotal"
-						listener="#{cadastroPedidoBean.atualizarQuantidade(item, linha)}"/>
+						listener="#{cadastroPedidoBean.atualizarQuantidade(item, linha)}" />
 			</p:inputText>
 		</p:column>
 
 		<p:column headerText="Estoque" style="text-align: center; width: 100px">
-			<h:outputText value="#{item.produto.quantidadeEstoque}"/>
+			<h:outputText value="#{item.produto.quantidadeEstoque}" style="#{item.estoqueInsuficiente ? 'color: red' : ''}"/>
+			<h:graphicImage library="imagens" name="alerta.png" id="semEstoque" rendered="#{item.estoqueInsuficiente}" style="vertical-align: bottom; margin-left: 5px"/>
+			<p:tooltip for="semEstoque" value="Estoque insuficiente" rendered="#{item.estoqueInsuficiente}"/>
 		</p:column>
 		
 		<p:column headerText="Valor Total" style="text-align: right; width: 100px">
