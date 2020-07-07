@@ -134,6 +134,18 @@ public class CadastroPedidoBean implements Serializable {
 		}
 	}
 	
+	public void atualizarQuantidade(ItemPedido item, int linha) {
+		if (item.getQuantidade() < 1) {
+			if(linha == 0) {
+				item.setQuantidade(1);
+			} else {
+				this.getPedido().getItens().remove(linha);
+			}
+		}
+		
+		this.pedido.recalcularValorTotal();
+	}
+	
 	//verifica a existência do id do objeto produto para saber se ele é novo ou não
 	public boolean isEditando() {
 		return this.pedido.getId() != null;
