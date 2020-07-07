@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Pedido;
 import com.algaworks.repository.PedidoRepository;
 import com.algaworks.util.jpa.Transactional;
@@ -19,6 +20,16 @@ public class PedidoService implements Serializable {
 	public Pedido salvar(Pedido pedido) {
 		if (pedido.isNovo()) {
 			pedido.setDataCriacao(new Date());
+		}
+		
+		pedido.recalcularValorTotal();
+		
+		if (pedido.getItens().isEmpty()) {
+			throw new NegocioException("O pedido deve possuir pelo menos um item.");
+		}
+		
+		if (pedido.isValorTotalNegativo()) {
+			throw new NegocioException("O valor total do pedido não pode ser negativo.");
 		}
 		
 		pedido = this.pedidoRepository.adicionar(pedido);

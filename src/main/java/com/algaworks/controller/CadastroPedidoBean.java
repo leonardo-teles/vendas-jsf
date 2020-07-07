@@ -72,9 +72,15 @@ public class CadastroPedidoBean implements Serializable {
 
 	//salva um pedido
 	public void salvar() {
-		this.pedido = this.pedidoService.salvar(this.pedido);
+		this.pedido.removerItemVazio();
 		
-		FacesUtil.addInfoMessage("Pedido salvo com sucesso.");
+		try {
+			this.pedido = this.pedidoService.salvar(this.pedido);
+		
+			FacesUtil.addInfoMessage("Pedido salvo com sucesso.");
+		} finally {
+			this.pedido.adicionarItemVazio();
+		}
 	}
 	
 	//calcula o valor total de um pedido
