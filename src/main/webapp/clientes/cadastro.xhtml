@@ -54,7 +54,7 @@
 	
 			</p:panelGrid>
 			
-			<p:commandButton icon="fa fa-fw fa-plus" value="Adicionar Endereço" actionListener="#{cadastroClienteBean.novoEndereco()}" process="@this" 
+			<p:commandButton icon="fa fa-fw fa-plus" value="Adicionar Endereço" actionListener="#{cadastroClienteBean.limparEndereco}" process="@this" 
 							 style="margin-bottom: 10px" oncomplete="PF('adicionarEndereco').show()" update="enderecoDialog">
 				<p:resetInput target="enderecoDialog"/>				 
 			</p:commandButton>
@@ -72,13 +72,13 @@
 						<p:inputText id="logradouro" size="60" maxlength="80" value="#{cadastroClienteBean.endereco.logradouro}"/>
 						
 						<p:outputLabel value="Número" for="numero"/>
-						<p:inputText id="numero" size="15" maxlength="3" value="#{cadastroClienteBean.endereco.numero}"/>
+						<p:inputText id="numero" size="15" maxlength="4" value="#{cadastroClienteBean.endereco.numero}"/>
 			
 						<p:outputLabel value="Complemento" for="complemento"/>
 						<p:inputText id="complemento" size="30" maxlength="50" value="#{cadastroClienteBean.endereco.complemento}"/>
 						
 						<p:outputLabel value="CEP" for="cep"/>
-						<p:inputMask id="cep" size="15" mask="99999-999" value="#{cadastroClienteBean.endereco.cep}"/>
+						<p:inputMask id="cep" size="10" mask="99999-999" value="#{cadastroClienteBean.endereco.cep}"/>
 						
 						<p:outputLabel value="Cidade" for="cidade"/>
 						
@@ -91,7 +91,7 @@
 						
 						<p:outputLabel/>
 						
-						<p:commandButton value="#{cadastroClienteBean.editandoEndereco ? 'Alterar' : 'Incluir'}" action="#{cadastroClienteBean.confirmarEndereco}" 
+						<p:commandButton value="#{cadastroClienteBean.editandoEndereco ? 'Alterar' : 'Incluir'}" action="#{cadastroClienteBean.adicionarEndereco}" 
 										 icon="fa fa-fw fa-plus"  ignoreAutoUpdate="true" process="enderecoPanel" update="enderecoPanel enderecoTable" 
 										 oncomplete="if (!args.validationFailed) PF('adicionarEndereco').hide()"/>
 										 
@@ -117,20 +117,30 @@
 					<h:outputText value="#{endereco.cep}"/>
 				</p:column>
 
-				<p:column headerText="Cidade/UF">
+				<p:column headerText="Cidade / UF">
 					<h:outputText value="#{endereco.cidade} / #{endereco.uf}"/>
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
-					<p:commandButton process="@this" update=":frmCadastro:enderecoPanel" onsuccess="PF('adicionarEndereco').show()"  
-					                 icon="fa fa-fw fa-edit" title="Editar" actionListener="#{cadastroClienteBean.editarEndereco(endereco)}">
+					<p:commandButton process="@this" update=":frmCadastro:enderecoPanel" onsuccess="PF('adicionarEndereco').show()" 
+									 icon="fa fa-fw fa-edit" title="Editar" action="#{cadastroClienteBean.editarEndereco(true)}">
+					    <f:setPropertyActionListener value="#{endereco}" target="#{cadastroClienteBean.endereco}"/>
 						<p:resetInput target="enderecoDialog"/>	                 
 					</p:commandButton>
 					
-					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" process="@this" update="enderecoTable" 
-									 action="#{cadastroClienteBean.excluirEndereco(endereco)}"/>
+					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" process="@this">
+						<f:setPropertyActionListener value="#{endereco}" target="#{cadastroClienteBean.enderecoSelecionado}"/>
+					</p:commandButton>					
+					
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de Endereço" widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog" 
+			                 message="Tem certeza que deseja excluir o endereço?">
+				<p:button icon="fa fa-fw fa-ban" value="Não" onclick="PF('confirmacaoExclusao').hide(); return false"/>
+				<p:commandButton icon="fa fa-fw fa-trash" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" 
+				                 actionListener="#{cadastroClienteBean.removerEndereco()}" process="@this" update=":frmCadastro:enderecoTable"/>
+			</p:confirmDialog>			
 			
 		</h:form>
 	</ui:define>

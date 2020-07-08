@@ -34,7 +34,7 @@
 					 disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"/>
 
 		<p:outputLabel value="CEP" for="entregaCep"/>
-		<p:inputText id="entregaCep" size="10" value="#{cadastroPedidoBean.pedido.enderecoEntrega.cep}"
+		<p:inputMask id="entregaCep" mask="99999-999" size="10" value="#{cadastroPedidoBean.pedido.enderecoEntrega.cep}"
 					 disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"/>
 	</p:panelGrid>
 	
