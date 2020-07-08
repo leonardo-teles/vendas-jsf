@@ -3,12 +3,15 @@ package com.algaworks.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.algaworks.event.PedidoAlteradoEvent;
 import com.algaworks.model.Cliente;
 import com.algaworks.model.EnderecoEntrega;
 import com.algaworks.model.FormaPagamento;
@@ -21,6 +24,7 @@ import com.algaworks.repository.ProdutoRepository;
 import com.algaworks.repository.UsuarioRepository;
 import com.algaworks.service.PedidoService;
 import com.algaworks.util.jsf.FacesUtil;
+import com.algaworks.validation.PedidoEdicao;
 import com.algaworks.validation.SKU;
 
 @Named
@@ -39,8 +43,11 @@ public class CadastroPedidoBean implements Serializable {
 
 	@Inject
 	private PedidoService pedidoService;
-	
+
+	@Produces
+	@PedidoEdicao
 	private Pedido pedido;
+	
 	private List<Usuario> vendedores;
 	
 	private Produto produtoLinhaEditavel;
@@ -68,6 +75,11 @@ public class CadastroPedidoBean implements Serializable {
 	private void limpar() {
 		pedido = new Pedido();
 		pedido.setEnderecoEntrega(new EnderecoEntrega());
+	}
+	
+	//Observer de alteração de quantidade de estoque
+	public void pedidoAlterado(@Observes PedidoAlteradoEvent event) {
+		this.pedido = event.getPedido();
 	}
 
 	//salva um pedido

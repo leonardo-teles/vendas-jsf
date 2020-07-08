@@ -252,6 +252,16 @@ public class Pedido implements Serializable {
 		return StatusPedido.EMITIDO.equals(this.getStatus());
 	}
 
+	@Transient
+	public boolean isNaoEmissivel() {
+		return !this.isEmissivel();
+	}
+
+	@Transient
+	private boolean isEmissivel() {
+		return this.isExistente() && this.isOrcamento();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
