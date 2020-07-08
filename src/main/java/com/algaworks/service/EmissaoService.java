@@ -8,8 +8,9 @@ import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Pedido;
 import com.algaworks.model.StatusPedido;
 import com.algaworks.repository.PedidoRepository;
+import com.algaworks.util.jpa.Transactional;
 
-public class EmissaoPedidoService implements Serializable {
+public class EmissaoService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -21,6 +22,7 @@ public class EmissaoPedidoService implements Serializable {
 	@Inject
 	private EstoqueService estoqueService;
 	
+	@Transactional
 	public Pedido emitir(Pedido pedido) {
 		pedido = this.pedidoService.salvar(pedido);
 		

@@ -112,6 +112,10 @@ public class Produto implements Serializable {
 		this.setQuantidadeEstoque(novaQuantidade);
 	}
 
+	public void adicionarEstoque(Integer quantidade) {
+		this.setQuantidadeEstoque(getQuantidadeEstoque() + quantidade);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

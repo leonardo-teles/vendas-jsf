@@ -262,6 +262,21 @@ public class Pedido implements Serializable {
 		return this.isExistente() && this.isOrcamento();
 	}
 
+	@Transient
+	public boolean isNaoCancelavel() {
+		return !this.isCancelavel();
+	}
+	
+	@Transient	
+	private boolean isCancelavel() {
+		return this.isExistente() && !this.isCancelado();
+	}
+
+	@Transient
+	private boolean isCancelado() {
+		return StatusPedido.CANCELADO.equals(this.getStatus());
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

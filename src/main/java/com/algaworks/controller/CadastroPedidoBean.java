@@ -129,7 +129,6 @@ public class CadastroPedidoBean implements Serializable {
 				this.pedido.recalcularValorTotal();
 			}
 		}
-		
 	}
 	
 	private boolean existeLinhaComProduto(Produto produto) {
