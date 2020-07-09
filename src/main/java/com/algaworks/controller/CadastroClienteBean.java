@@ -2,6 +2,7 @@ package com.algaworks.controller;
 
 import java.io.Serializable;
 
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,6 +12,7 @@ import com.algaworks.model.Endereco;
 import com.algaworks.model.TipoPessoa;
 import com.algaworks.service.ClienteService;
 import com.algaworks.util.jsf.FacesUtil;
+import com.algaworks.validation.ClienteEdicao;
 
 @Named
 @ViewScoped
@@ -20,6 +22,8 @@ public class CadastroClienteBean implements Serializable {
 	@Inject
 	private ClienteService clienteService; 
 	
+	@Produces
+	@ClienteEdicao
 	private Cliente cliente;
 	
 	private Endereco endereco;

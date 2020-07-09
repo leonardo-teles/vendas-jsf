@@ -98,6 +98,11 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 	
+	@Transient
+	public boolean isNaoEnviavelPorEmail() {
+		return this.getId() == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -29,6 +29,9 @@
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
+					<p:commandButton icon="fa fa-fw fa-envelope" value="Enviar Cadastro por e-Mail" action="#{envioClienteEmailBean.enviarDados}"
+									 process="@this" disabled="#{cadastroClienteBean.cliente.naoEnviavelPorEmail}" />				
+				
 					<p:button icon="fa fa-fw fa-search" value="Pesquisa" outcome="/clientes/pesquisa"/>
 				</p:toolbarGroup>
 			</p:toolbar>
