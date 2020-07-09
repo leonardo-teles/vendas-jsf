@@ -286,6 +286,11 @@ public class Pedido implements Serializable {
 	private boolean isAlteravel() {
 		return this.isOrcamento();
 	}
+	
+	@Transient
+	public boolean isNaoEnviavelPorEmail() {
+		return this.isNovo() || this.isCancelado();
+	}
 
 	@Override
 	public int hashCode() {

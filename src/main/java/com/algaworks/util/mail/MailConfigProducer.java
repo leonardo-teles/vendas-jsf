@@ -17,13 +17,13 @@ public class MailConfigProducer {
 		Properties properties = new Properties();
 		properties.load(getClass().getResourceAsStream("/mail.properties"));
 		
-		
-		
 		SimpleMailConfig config = new SimpleMailConfig();
 		config.setServerHost(properties.getProperty("mail.server.host"));
 		config.setServerPort(Integer.parseInt(properties.getProperty("mail.server.port")));
 		config.setEnableSsl(Boolean.parseBoolean(properties.getProperty("mail.enable.ssl")));
-		config.setAuth(Boolean.parseBoolean(properties.getProperty("mail.auth")));
+		config.setEnableTls(Boolean.parseBoolean(properties.getProperty("mail.smtp.starttls.enable")));
+		config.setAuth(Boolean.parseBoolean(properties.getProperty("mail.smtp.auth")));
+		
 		config.setUsername(properties.getProperty("mail.username"));
 		config.setPassword(properties.getProperty("mail.password"));
 		

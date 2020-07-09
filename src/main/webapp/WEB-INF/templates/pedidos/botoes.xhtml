@@ -17,7 +17,8 @@
 							 disabled="#{cadastroPedidoBean.pedido.naoEmissivel}"/>
 			<p:commandButton icon="fa fa-fw fa-ban" value="Cancelar" action="#{cancelamentoPedidoBean.cancelarPedido}" process="@this" update="@form"
 							 disabled="#{cadastroPedidoBean.pedido.naoCancelavel}"/>
-			<p:commandButton icon="fa fa-fw fa-envelope" value="Enviar por e-Mail"/>
+			<p:commandButton icon="fa fa-fw fa-envelope" value="Enviar por e-Mail" action="#{envioPedidoEmailBean.enviarPedido}" process="@this"
+							 disabled="#{cadastroPedidoBean.pedido.naoEnviavelPorEmail}"/>
 			
 			<p:separator/>
 		
