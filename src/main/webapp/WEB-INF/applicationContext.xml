@@ -5,6 +5,8 @@
            						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            						http://www.springframework.org/schema/security
            						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+           						
+    <beans:bean id="appUserDetailsService" class="com.algaworks.security.AppUserDetailsService"/>       						
     
     <http pattern="/javax.faces.resource/**" security="none"/>
            
@@ -16,11 +18,8 @@
 	</http>
 	
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="joao" password="joao" authorities="VENDEDORES" />
-				<user name="manoel" password="manoel" authorities="ADMINISTRADORES" />
-			</user-service>
+		<authentication-provider  user-service-ref="appUserDetailsService">
+			
 		</authentication-provider>
 	</authentication-manager>
            

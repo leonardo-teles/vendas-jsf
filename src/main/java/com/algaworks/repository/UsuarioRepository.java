@@ -33,8 +33,8 @@ public class UsuarioRepository implements Serializable {
 
 	public Usuario buscarUsuarioPorEmail(String email) {
 		try {
-			return manager.createQuery("from Usuario where upper(email) = :email", Usuario.class)
-					.setParameter("email", email.toUpperCase())
+			return manager.createQuery("from Usuario where lower(email) = :email", Usuario.class)
+					.setParameter("email", email.toLowerCase())
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
