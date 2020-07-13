@@ -49,7 +49,8 @@
 	  							<p:menuitem value="Pesquisa" icon="fa fa-fw fa-search" outcome="/pedidos/pesquisa"/>
 	  						</p:submenu>
 	  						
-	  						<p:menuitem value="Sair" icon="fa fa-fw fa-sign-out" style="color:white" url="/j_spring_security_logout"/>
+	  						<p:menuitem value="Sair" icon="fa fa-fw fa-sign-out" style="color:white" 
+	  						             url="#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"/>
 	  					</p:menubar>
 	  				</h:form>
   				</div>
