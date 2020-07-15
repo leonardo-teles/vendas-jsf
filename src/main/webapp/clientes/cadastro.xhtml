@@ -25,7 +25,7 @@
 				<p:toolbarGroup>
 					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/clientes/cadastro"/>
 					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar" action="#{cadastroClienteBean.salvar}" 
-									 update="@form" process="@this painel"/>
+									 update="@form" process="@this painel" disabled="#{seguranca.proibidoSalvarCliente}"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -58,7 +58,7 @@
 			</p:panelGrid>
 			
 			<p:commandButton icon="fa fa-fw fa-plus" value="Adicionar Endereço" actionListener="#{cadastroClienteBean.limparEndereco}" process="@this" 
-							 style="margin-bottom: 10px" oncomplete="PF('adicionarEndereco').show()" update="enderecoDialog">
+							 style="margin-bottom: 10px" oncomplete="PF('adicionarEndereco').show()" update="enderecoDialog" disabled="#{seguranca.proibidoSalvarCliente}">
 				<p:resetInput target="enderecoDialog"/>				 
 			</p:commandButton>
 			
@@ -126,12 +126,14 @@
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
 					<p:commandButton process="@this" update=":frmCadastro:enderecoPanel" onsuccess="PF('adicionarEndereco').show()" 
-									 icon="fa fa-fw fa-edit" title="Editar" action="#{cadastroClienteBean.editarEndereco(true)}">
+									 icon="fa fa-fw fa-edit" title="Editar" action="#{cadastroClienteBean.editarEndereco(true)}"
+									 disabled="#{seguranca.proibidoSalvarCliente}">
 					    <f:setPropertyActionListener value="#{endereco}" target="#{cadastroClienteBean.endereco}"/>
 						<p:resetInput target="enderecoDialog"/>	                 
 					</p:commandButton>
 					
-					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" process="@this">
+					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+									 disabled="#{seguranca.proibidoSalvarCliente}">
 						<f:setPropertyActionListener value="#{endereco}" target="#{cadastroClienteBean.enderecoSelecionado}"/>
 					</p:commandButton>					
 					

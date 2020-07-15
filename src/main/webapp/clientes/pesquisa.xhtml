@@ -53,11 +53,11 @@
 				</p:column>
 
 				<p:column headerText="Ações" style="text-align: center; width: 100px">
-					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/clientes/cadastro">
+					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/clientes/cadastro" disabled="#{seguranca.proibidoSalvarCliente}">
 						<f:param name="cliente" value="#{cliente.id}"/>
 					</p:button>
 					<p:commandButton icon="fa fa-fw fa-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()" 
-									 process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+									 process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog" disabled="#{seguranca.proibidoSalvarCliente}">
 						<f:setPropertyActionListener value="#{cliente}" target="#{pesquisaClientesBean.clienteSelecionado}"/>
 					</p:commandButton>					
 				</p:column>

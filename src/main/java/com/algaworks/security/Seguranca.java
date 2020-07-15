@@ -48,4 +48,9 @@ public class Seguranca {
 	public boolean isCancelarPedidoPermitido() {
 		return externalContext.isUserInRole("ADMINISTRADORES") || externalContext.isUserInRole("VENDEDORES");
 	}
+	
+	public boolean isProibidoSalvarCliente() {
+		return externalContext.isUserInRole("AUXILIARES");
+	}
+	
 }
