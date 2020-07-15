@@ -7,19 +7,25 @@
            						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
            						
     <beans:bean id="appUserDetailsService" class="com.algaworks.security.AppUserDetailsService"/>       						
-    
+
+	<http pattern="/login.xhtml" security="none"/>
+	<http pattern="/erro.xhtml" security="none"/>
+	    
     <http pattern="/javax.faces.resource/**" security="none"/>
            
-	<http auto-config="true" use-expressions="true">
+	<http auto-config="false" use-expressions="true">
 		<intercept-url pattern="/index.xhtml" access="isAuthenticated()"/>
 		<intercept-url pattern="/pedidos/**" access="hasAnyRole('VENDEDORES', 'AUXILIARES', 'ADMINISTRADORES')"/>
 		<intercept-url pattern="/produtos/**" access="hasAnyRole('ADMINISTRADORES')"/>
 		<intercept-url pattern="/**" access="denyAll" />
+		
+		<form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?invalid=true" default-target-url="/" always-use-default-target="true"/>
+		<logout logout-url="/j_spring_security_logout" invalidate-session="true"/>
 	</http>
 	
 	<authentication-manager>
 		<authentication-provider  user-service-ref="appUserDetailsService">
-			
+			<!-- <password-encoder hash="md5"/> -->
 		</authentication-provider>
 	</authentication-manager>
            
