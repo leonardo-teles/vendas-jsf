@@ -6,7 +6,24 @@
            						http://www.springframework.org/schema/security
            						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
            						
-    <beans:bean id="appUserDetailsService" class="com.algaworks.security.AppUserDetailsService"/>       						
+    <beans:bean id="appUserDetailsService" class="com.algaworks.security.AppUserDetailsService"/>  
+    
+	<beans:bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+	    <beans:property name="accessDeniedHandler" ref="jsfAccessDeniedHandler"/>
+	    <beans:property name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+	</beans:bean>
+	
+	<beans:bean id="jsfAccessDeniedHandler" class="com.algaworks.security.JsfAccessDeniedHandler">
+	    <beans:property name="loginPath" value="/negado.xhtml" />
+	    <beans:property name="contextRelative" value="true" />
+	</beans:bean>
+	
+	<beans:bean id="authenticationEntryPoint" class="com.algaworks.security.JsfLoginUrlAuthenticationEntryPoint">
+	    <beans:property name="loginFormUrl" value="/login.xhtml"/>
+	    <beans:property name="redirectStrategy" ref="jsfRedirectStrategy" />
+	</beans:bean>
+	
+	<beans:bean id="jsfRedirectStrategy" class="com.algaworks.security.JsfRedirectStrategy"/>    
 
 	<http pattern="/login.xhtml" security="none"/>
 	<http pattern="/erro.xhtml" security="none"/>
@@ -14,6 +31,8 @@
     <http pattern="/javax.faces.resource/**" security="none"/>
            
 	<http auto-config="false" use-expressions="true">
+		<custom-filter ref="exceptionTranslationFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+	
 		<intercept-url pattern="/index.xhtml" access="isAuthenticated()"/>
 		<intercept-url pattern="/pedidos/**" access="hasAnyRole('VENDEDORES', 'AUXILIARES', 'ADMINISTRADORES')"/>
 		<intercept-url pattern="/produtos/**" access="hasAnyRole('ADMINISTRADORES')"/>
