@@ -22,13 +22,6 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.Type;
 
 import com.algaworks.model.Pedido;
 import com.algaworks.model.Usuario;
@@ -50,8 +43,6 @@ public class PedidoRepository implements Serializable {
 	}
 	
 	public Map<Date, BigDecimal> valoresTotaisPorData(Integer numeroDeDias, Usuario criadoPor) {
-		Session session = manager.unwrap(Session.class);
-		
 		numeroDeDias -= 1;
 		
 		Calendar dataInicial = Calendar.getInstance();
@@ -60,20 +51,24 @@ public class PedidoRepository implements Serializable {
 		
 		Map<Date, BigDecimal> resultado = criarMapaVazio(numeroDeDias, dataInicial);
 		
-		@SuppressWarnings("deprecation")
-		Criteria criteria =  session.createCriteria(Pedido.class);
-		
-		criteria.setProjection(Projections.projectionList()
-			.add(Projections.sqlGroupProjection("date(data_criacao) as data", "date(data_criacao)", new String[] { "data" }, new Type[] { StandardBasicTypes.DATE }))
-			.add(Projections.sum("valorTotal").as("valor"))
-		).add(Restrictions.ge("dataCriacao", dataInicial.getTime()));
+		String jpql = "select new com.algaworks.model.vo.DataValor(date(p.dataCriacao), sum(p.valorTotal)) "
+				+ "from Pedido p where p.dataCriacao >= :dataInicial ";
 		
 		if (criadoPor != null) {
-			criteria.add(Restrictions.eq("vendedor", criadoPor));
+			jpql += "and p.vendedor = :vendedor ";
 		}
 		
-		@SuppressWarnings({ "unchecked" })
-		List<DataValor> valoresPorData = criteria.setResultTransformer(Transformers.aliasToBean(DataValor.class)).list();
+		jpql += "group by date(dataCriacao)";
+		
+		TypedQuery<DataValor> query = manager.createQuery(jpql, DataValor.class);
+		
+		query.setParameter("dataInicial", dataInicial.getTime());
+		
+		if (criadoPor != null) {
+			query.setParameter("vendedor", criadoPor);
+		}
+		
+		List<DataValor> valoresPorData = query.getResultList();
 		
 		for (DataValor dataValor : valoresPorData) {
 			resultado.put(dataValor.getData(), dataValor.getValor());
@@ -81,7 +76,7 @@ public class PedidoRepository implements Serializable {
 		
 		return resultado;
 	}
-
+	
 	private Map<Date, BigDecimal> criarMapaVazio(Integer numeroDeDias, Calendar dataInicial) {
 		
 		dataInicial = (Calendar) dataInicial.clone();
