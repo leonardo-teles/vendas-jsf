@@ -34,8 +34,8 @@ public class Produto implements Serializable {
 	@Column(nullable = false, length = 80)
 	private String nome;
 	
-	@SKU(message = "Informe um SKU válido.")
-	@NotBlank
+	@SKU(message = "Informe um SKU no formato XX9999.")
+	@NotBlank(message = "Informe o SKU")
 	@Column(nullable = false, length = 20, unique = true)
 	private String sku;
 	

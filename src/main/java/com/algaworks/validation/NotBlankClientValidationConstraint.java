@@ -5,11 +5,12 @@ import java.util.Map;
 
 import javax.validation.metadata.ConstraintDescriptor;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.validate.bean.ClientValidationConstraint;
 
-public class SKUClientValidationConstraint implements ClientValidationConstraint {
+public class NotBlankClientValidationConstraint implements ClientValidationConstraint {
 
-	public static final String MESSAGE_ID = "{com.algaworks.constraints.SKU.message}";  
+	public static final String MESSAGE_ID = "{org.hibernate.validator.constraints.NotBlank.message}";  
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -20,7 +21,7 @@ public class SKUClientValidationConstraint implements ClientValidationConstraint
 		Object message = attr.get("message");
 		
 		if(!message.equals(MESSAGE_ID)) {
-			metadata.put("data-msg-sku", message);
+			metadata.put("data-msg-notblank", message);
 		}
 		
 		return metadata;
@@ -28,7 +29,7 @@ public class SKUClientValidationConstraint implements ClientValidationConstraint
 
 	@Override
 	public String getValidatorId() {
-		return SKU.class.getSimpleName();
+		return NotBlank.class.getSimpleName();
 	}
 
 }
