@@ -29,7 +29,7 @@ public class Produto implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "Nome é obrigatório.")
 	@Size(max = 80)
 	@Column(nullable = false, length = 80)
 	private String nome;
@@ -39,17 +39,17 @@ public class Produto implements Serializable {
 	@Column(nullable = false, length = 20, unique = true)
 	private String sku;
 	
-	@NotNull(message = "é obrigatório.")
+	@NotNull(message = "Valor unitário é obrigatório.")
 	@Column(name = "valor_unitario", nullable = false, precision = 10, scale = 2)
 	private BigDecimal valorUnitario;
 	
-	@NotNull 
+	@NotNull(message = "Quantidade em Estoque é obrigatória.") 
 	@Min(0) 
 	@Max(value = 9999, message = "deve ter o valor máximo de 9999.")
 	@Column(nullable = false, length = 3)
 	private Integer quantidadeEstoque;
 	
-	@NotNull(message = "deve ser informada.")
+	@NotNull(message = "Subcategoria deve ser informada.")
 	@ManyToOne
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;

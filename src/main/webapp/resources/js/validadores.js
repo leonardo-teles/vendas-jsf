@@ -61,4 +61,6 @@ PrimeFaces.converter['com.algaworks.Categoria'] = {
 		
 		return parseInt(value);
 	}
-}
+};
+
+

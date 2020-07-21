@@ -27,7 +27,7 @@ public class CadastroProdutoBean implements Serializable {
 	private ProdutoService produtoService;
 	
 	private Produto produto;
-	@NotNull
+	@NotNull(message = "Categoria deve ser informada.")
 	private Categoria categoriaPai;
 	
 	private List<Categoria> categoriasRaizes;
