@@ -25,7 +25,8 @@
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
 					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/produtos/cadastro"/>
-					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}" update="@form"/>
+					<p:commandButton icon="fa fa-fw fa-save" value="Salvar" id="btnSalvar" action="#{cadastroProdutoBean.salvar}" 
+									 update="@form" validateClient="true"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">

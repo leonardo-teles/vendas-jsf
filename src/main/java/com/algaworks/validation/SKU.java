@@ -10,9 +10,12 @@ import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
 import javax.validation.constraints.Pattern;
 
+import org.primefaces.validate.bean.ClientConstraint;
+
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
+@ClientConstraint(resolvedBy = SKUClientValidationConstraint.class)
 @Pattern(regexp = "([a-zA-Z]{2}\\d{4,18})?")
 public @interface SKU {
 
