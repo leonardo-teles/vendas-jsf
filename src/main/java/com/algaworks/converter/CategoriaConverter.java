@@ -1,5 +1,7 @@
 package com.algaworks.converter;
 
+import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -7,12 +9,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.convert.ClientConverter;
 
 import com.algaworks.model.Categoria;
 import com.algaworks.repository.CategoriaRepository;
 
 @Named
-public class CategoriaConverter implements Converter {
+public class CategoriaConverter implements Converter, ClientConverter {
 
 	@Inject
 	private CategoriaRepository categoriaRepository;
@@ -38,6 +41,16 @@ public class CategoriaConverter implements Converter {
 		}
 		
 		return "";
+	}
+
+	@Override
+	public Map<String, Object> getMetadata() {
+		return null;
+	}
+
+	@Override
+	public String getConverterId() {
+		return "com.algaworks.Categoria";
 	}
 
 }

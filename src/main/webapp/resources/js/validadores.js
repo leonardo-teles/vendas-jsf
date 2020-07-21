@@ -51,4 +51,14 @@ PrimeFaces.validator.NotBlank = {
 		}
 		
 	}	
+};
+
+PrimeFaces.converter['com.algaworks.Categoria'] = {
+	convert : function(element, value) {
+		if(value === null || value === '') {
+			return null;
+		}
+		
+		return parseInt(value);
+	}
 }
