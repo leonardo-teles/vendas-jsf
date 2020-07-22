@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.event.SelectEvent;
 
 import com.algaworks.event.PedidoAlteradoEvent;
 import com.algaworks.model.Cliente;
@@ -43,7 +45,7 @@ public class CadastroPedidoBean implements Serializable {
 
 	@Inject
 	private PedidoService pedidoService;
-
+	
 	@Produces
 	@PedidoEdicao
 	private Pedido pedido;
@@ -81,7 +83,7 @@ public class CadastroPedidoBean implements Serializable {
 	public void pedidoAlterado(@Observes PedidoAlteradoEvent event) {
 		this.pedido = event.getPedido();
 	}
-
+	
 	//salva um pedido
 	public void salvar() {
 		this.pedido.removerItemVazio();
@@ -172,6 +174,19 @@ public class CadastroPedidoBean implements Serializable {
 	public FormaPagamento[] getFormasPagamento() {
 		return FormaPagamento.values();
 	}
+	
+	//cliente selecionado na linha do dialog
+	public void clienteSelecionado(SelectEvent event) {
+		this.pedido.setCliente((Cliente) event.getObject());
+	}
+	
+	//método de contorno para exibir o nome do cliente selecionado no input
+	@NotBlank
+	public String getNomeCliente() {
+		return this.pedido.getCliente() == null ? null : this.pedido.getCliente().getNome();
+	}
+	
+	public void setNomeCliente(String nome) {}
 	
 	public Pedido getPedido() {
 		return pedido;

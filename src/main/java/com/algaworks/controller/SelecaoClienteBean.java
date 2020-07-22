@@ -30,6 +30,11 @@ public class SelecaoClienteBean implements Serializable {
 		clientesFiltrados = clienteRepository.buscarPorNome(nome);
 	}
 
+	//seleciona o cliente e exibe no campo
+	public void selecionar(Cliente cliente) {
+		PrimeFaces.current().dialog().closeDynamic(cliente);
+	}
+	
 	public void abrirDialogo() {
 		Map<String,Object> opcoes = new HashMap<String, Object>();
 		opcoes.put("modal", true);

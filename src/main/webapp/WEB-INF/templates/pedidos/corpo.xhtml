@@ -25,12 +25,12 @@
 		
 		<p:outputLabel value="Cliente" for="cliente"/>
 		<h:panelGroup>
-			<p:autoComplete id="cliente" value="#{cadastroPedidoBean.pedido.cliente}" completeMethod="#{cadastroPedidoBean.completarCliente}" dropdown="false"
-	                        var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" converter="#{clienteConverter}" forceSelection="true" size="40"
-	                        disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"/>
-	                        
-	        <p:commandButton icon="fa fa-fw fa-search" title="Pesquisar" process="@this" update="@none" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
-	        				 action="#{selecaoClienteBean.abrirDialogo}" ignoreAutoUpdate="true"/>                        				
+ 			<p:inputText id="cliente" value="#{cadastroPedidoBean.nomeCliente}" size="40" readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"/>
+ 	                        
+	        <p:commandButton icon="fa fa-fw fa-search" title="Pesquisar" process="@this" update="@none" ignoreAutoUpdate="true"
+	        				 disabled="#{cadastroPedidoBean.pedido.naoAlteravel}" action="#{selecaoClienteBean.abrirDialogo}">
+	        	<p:ajax event="dialogReturn" listener="#{cadastroPedidoBean.clienteSelecionado}" update="cliente" ignoreAutoUpdate="true" />
+	        </p:commandButton>                       				
         </h:panelGroup>
         				
 		<p:outputLabel value="Forma de Pagamento" for="formaPagamento"/>

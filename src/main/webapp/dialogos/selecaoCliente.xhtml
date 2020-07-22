@@ -31,7 +31,7 @@
 				</p:column>
 
 				<p:column headerText="Ação" style="text-align: center; width: 35px">
-					<p:commandButton icon="fa fa-fw fa-check" title="Selecionar"/>
+					<p:commandButton icon="fa fa-fw fa-check" title="Selecionar" process="@this" action="#{selecaoClienteBean.selecionar(cliente)}"/>
 				</p:column>			
 			</p:dataTable>	  	 
 	  	 </h:form>
