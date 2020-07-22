@@ -24,9 +24,14 @@
 		</p:selectOneMenu>
 		
 		<p:outputLabel value="Cliente" for="cliente"/>
-		<p:autoComplete id="cliente" value="#{cadastroPedidoBean.pedido.cliente}" completeMethod="#{cadastroPedidoBean.completarCliente}" dropdown="true"
-                        var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" converter="#{clienteConverter}" forceSelection="true" size="40"
-                        disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"/>        				
+		<h:panelGroup>
+			<p:autoComplete id="cliente" value="#{cadastroPedidoBean.pedido.cliente}" completeMethod="#{cadastroPedidoBean.completarCliente}" dropdown="false"
+	                        var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" converter="#{clienteConverter}" forceSelection="true" size="40"
+	                        disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"/>
+	                        
+	        <p:commandButton icon="fa fa-fw fa-search" title="Pesquisar" process="@this" update="@none" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
+	        				 action="#{selecaoClienteBean.abrirDialogo}" ignoreAutoUpdate="true"/>                        				
+        </h:panelGroup>
         				
 		<p:outputLabel value="Forma de Pagamento" for="formaPagamento"/>
 		<p:selectOneMenu id="formaPagamento" value="#{cadastroPedidoBean.pedido.formaPagamento}" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}">
