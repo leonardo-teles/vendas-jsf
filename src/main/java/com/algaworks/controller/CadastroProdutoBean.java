@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Categoria;
 import com.algaworks.model.Produto;
 import com.algaworks.repository.CategoriaRepository;
@@ -27,6 +28,7 @@ public class CadastroProdutoBean implements Serializable {
 	private ProdutoService produtoService;
 	
 	private Produto produto;
+	
 	@NotNull(message = "Categoria deve ser informada.")
 	private Categoria categoriaPai;
 	
@@ -62,10 +64,14 @@ public class CadastroProdutoBean implements Serializable {
 	}	
 	
 	//salva um novo produto
-	public void salvar() {
-		this.produto = produtoService.salvar(this.produto);
-		limpar();
-		FacesUtil.addInfoMessage("Produto salvo com sucesso.");
+	public void salvar(){
+		try {
+			this.produto = produtoService.salvar(this.produto);
+			limpar();
+			FacesUtil.addInfoMessage("Produto salvo com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	public Produto getProduto() {

@@ -7,6 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Cliente;
 import com.algaworks.repository.ClienteRepository;
 import com.algaworks.repository.filter.ClienteFilter;
@@ -35,11 +36,15 @@ public class PesquisaClientesBean implements Serializable {
 	
 	//remove um usuário
 	public void excluir() {
-		clienteRepository.remover(clienteSelecionado);
-		clientesFiltrados.remove(clienteSelecionado);
-		limpar();
-
-		FacesUtil.addInfoMessage("Cliente " + clienteSelecionado.getNome() + " excluído com sucesso.");
+		try {
+			clienteRepository.remover(clienteSelecionado);
+			clientesFiltrados.remove(clienteSelecionado);
+			limpar();
+	
+			FacesUtil.addInfoMessage("Cliente " + clienteSelecionado.getNome() + " excluído com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	//limpa os dados da tela após excluir um cliente que foi buscado

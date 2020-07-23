@@ -7,6 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Usuario;
 import com.algaworks.repository.UsuarioRepository;
 import com.algaworks.repository.filter.UsuarioFilter;
@@ -35,11 +36,15 @@ public class PesquisaUsuariosBean implements Serializable {
 	
 	//remove um usuário
 	public void excluir() {
-		usuarioRepository.remover(usuarioSelecionado);
-		usuariosFiltrados.remove(usuarioSelecionado);
-		limpar();
-
-		FacesUtil.addInfoMessage("Usuário " + usuarioSelecionado.getNome() + " excluído com sucesso.");
+		try {
+			usuarioRepository.remover(usuarioSelecionado);
+			usuariosFiltrados.remove(usuarioSelecionado);
+			limpar();
+	
+			FacesUtil.addInfoMessage("Usuário " + usuarioSelecionado.getNome() + " excluído com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	//limpa os dados da tela após excluir um usuário que foi buscado

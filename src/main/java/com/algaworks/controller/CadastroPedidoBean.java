@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.event.SelectEvent;
 
 import com.algaworks.event.PedidoAlteradoEvent;
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Cliente;
 import com.algaworks.model.EnderecoEntrega;
 import com.algaworks.model.FormaPagamento;
@@ -92,6 +93,8 @@ public class CadastroPedidoBean implements Serializable {
 			this.pedido = this.pedidoService.salvar(this.pedido);
 		
 			FacesUtil.addInfoMessage("Pedido salvo com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
 		} finally {
 			this.pedido.adicionarItemVazio();
 		}

@@ -46,7 +46,7 @@ public class UsuarioRepository implements Serializable {
 	}
 	
 	@Transactional
-	public void remover(Usuario usuario) {
+	public void remover(Usuario usuario) throws NegocioException {
 		try {
 			usuario = buscarUsuarioPorId(usuario.getId());
 			manager.remove(usuario);

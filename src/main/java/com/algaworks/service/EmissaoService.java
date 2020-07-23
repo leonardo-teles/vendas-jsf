@@ -23,7 +23,7 @@ public class EmissaoService implements Serializable {
 	private EstoqueService estoqueService;
 	
 	@Transactional
-	public Pedido emitir(Pedido pedido) {
+	public Pedido emitir(Pedido pedido) throws NegocioException {
 		pedido = this.pedidoService.salvar(pedido);
 		
 		if (pedido.isNaoEmissivel()) {

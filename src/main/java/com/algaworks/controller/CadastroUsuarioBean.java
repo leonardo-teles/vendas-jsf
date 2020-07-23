@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Grupo;
 import com.algaworks.model.Usuario;
 import com.algaworks.repository.GrupoRepository;
@@ -54,11 +55,15 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 	
 	//salva um novo usuário
-	public void salvar() {
-		this.usuario.setGrupos(gruposSelecionados);
-		this.usuario = usuarioService.salvar(this.usuario);
-		limpar();
-		FacesUtil.addInfoMessage("Usuário salvo com sucesso.");
+	public void salvar(){
+		try {
+			this.usuario.setGrupos(gruposSelecionados);
+			this.usuario = usuarioService.salvar(this.usuario);
+			limpar();
+			FacesUtil.addInfoMessage("Usuário salvo com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	//verifica a existência do id do objeto usuário para saber se ele é novo ou não

@@ -7,6 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Cliente;
 import com.algaworks.model.Endereco;
 import com.algaworks.model.TipoPessoa;
@@ -50,10 +51,14 @@ public class CadastroClienteBean implements Serializable {
 	}
 	
 	//salva um novo cliente 
-	public void salvar() {
-		this.cliente = clienteService.salvar(this.cliente);
-		limpar();
-		FacesUtil.addInfoMessage("Cliente salvo com sucesso.");
+	public void salvar(){
+		try {
+			this.cliente = clienteService.salvar(this.cliente);
+			limpar();
+			FacesUtil.addInfoMessage("Cliente salvo com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	//abre o dialog de adição de novos endereços

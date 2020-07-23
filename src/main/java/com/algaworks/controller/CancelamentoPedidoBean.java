@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.algaworks.event.PedidoAlteradoEvent;
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Pedido;
 import com.algaworks.service.CancelamentoService;
 import com.algaworks.util.jsf.FacesUtil;
@@ -29,9 +30,13 @@ public class CancelamentoPedidoBean implements Serializable {
 	private Pedido pedido;
 	
 	public void cancelarPedido() {
-		this.pedido = this.cancelamentoService.cancelar(this.pedido);
-		this.pedidoAlteradoEvent.fire(new PedidoAlteradoEvent(this.pedido));
-		
-		FacesUtil.addInfoMessage("Pedido cancelado com sucesso.");
+		try {
+			this.pedido = this.cancelamentoService.cancelar(this.pedido);
+			this.pedidoAlteradoEvent.fire(new PedidoAlteradoEvent(this.pedido));
+			
+			FacesUtil.addInfoMessage("Pedido cancelado com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 }

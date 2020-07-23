@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.algaworks.event.PedidoAlteradoEvent;
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Pedido;
 import com.algaworks.service.EmissaoService;
 import com.algaworks.util.jsf.FacesUtil;
@@ -36,6 +37,8 @@ public class EmissaoPedidoBean implements Serializable {
 			this.pedidoAlteradoEvent.fire(new PedidoAlteradoEvent(this.pedido));
 			
 			FacesUtil.addInfoMessage("Pedido emitido com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
 		} finally {
 			this.pedido.adicionarItemVazio();
 		}

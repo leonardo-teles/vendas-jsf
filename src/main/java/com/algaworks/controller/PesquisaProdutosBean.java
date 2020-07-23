@@ -7,6 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Produto;
 import com.algaworks.repository.ProdutoRepository;
 import com.algaworks.repository.filter.ProdutoFilter;
@@ -35,11 +36,15 @@ public class PesquisaProdutosBean implements Serializable {
 	
 	//remove um produto
 	public void excluir() {
-		produtoRepository.remover(produtoSelecionado);
-		produtosFiltrados.remove(produtoSelecionado);
-		limpar();
-		
-		FacesUtil.addInfoMessage("Produto " + produtoSelecionado.getSku() + " excluído com sucesso.");
+		try {
+			produtoRepository.remover(produtoSelecionado);
+			produtosFiltrados.remove(produtoSelecionado);
+			limpar();
+			
+			FacesUtil.addInfoMessage("Produto " + produtoSelecionado.getSku() + " excluído com sucesso.");
+		} catch(NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 	}
 	
 	//limpa os dados da tela após excluir um produto que foi buscado
