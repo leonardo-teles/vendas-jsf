@@ -14,7 +14,10 @@
     		<f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView" />
     	</f:metadata>
 	
-		<h:form prependId="false">
+		<h:form prependId="false" id="frmCadastro">
+			
+			<p:focus context="frmCadastro" />
+		
 			<h1>#{cadastroProdutoBean.editando ? 'Edição de Produto' : 'Novo Produto'}</h1>
 			
 			<p:messages id="messages" closable="true">

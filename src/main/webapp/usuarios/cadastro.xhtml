@@ -15,6 +15,9 @@
     	</f:metadata>
 	
 		<h:form prependId="false" id="frmCadastro">
+			
+			<p:focus context="frmCadastro" />
+		
 			<h1>#{cadastroUsuarioBean.editando ? 'Edição de Usuário' : 'Novo Usuário'}</h1>
 			
 			<p:messages closable="true" id="msg">
