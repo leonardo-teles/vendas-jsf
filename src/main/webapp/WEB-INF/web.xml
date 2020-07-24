@@ -63,12 +63,11 @@
   	<param-value>true</param-value>
   </context-param>   
   
-  <!-- Tema Primefaces
+  <!-- Tema Primefaces -->
   <context-param>
 	<param-name>primefaces.THEME</param-name>
-	<param-value>redmond</param-value>
+	<param-value>bootstrap</param-value>
   </context-param>
-  -->
   
   <filter>
 	<filter-name>springSecurityFilterChain</filter-name>

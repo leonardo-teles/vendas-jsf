@@ -67,12 +67,12 @@
 		<version>7.0</version>
 	</dependency>
 
-	<!-- Tema Primefaces 
+	<!-- Tema Primefaces -->
 	<dependency>
 		<groupId>org.primefaces.themes</groupId>
-		<artifactId>all-themes</artifactId>
+		<artifactId>bootstrap</artifactId>
 		<version>1.0.10</version>
-	</dependency> -->
+	</dependency> 
 	
 	<!-- Servlet API -->
 	<dependency>
