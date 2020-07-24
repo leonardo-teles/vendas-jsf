@@ -16,12 +16,11 @@
 			
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup>
-					<p:commandButton icon="fa fa-fw fa-search" value="Pesquisa" action="#{pesquisaPedidosBean.pesquisar}" update="@form"/>
+					<p:commandButton icon="fa fa-fw fa-search" value="Pesquisa" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
-					<p:commandButton value="Exportar para XLS" disabled="#{empty pesquisaPedidosBean.pedidosFiltrados}"
-									 icon="fa fa-fw fa-file-excel-o" ajax="false">
+					<p:commandButton value="Exportar para XLS" icon="fa fa-fw fa-file-excel-o" ajax="false">
 						<p:dataExporter type="xls" target="pedidosTable" fileName="pedidos" postProcessor="#{pesquisaPedidosBean.posProcessarXLS}"/>
 					</p:commandButton>
 				
@@ -56,13 +55,13 @@
 				</p:selectManyCheckbox>
 			</p:panelGrid>
 			
-			<p:dataTable id="pedidosTable" value="#{pesquisaPedidosBean.pedidosFiltrados}" var="pedido" emptyMessage="Nenhum pedido encontrado."
-						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-				<p:column headerText="Número" style="text-align: center; width: 100px">
+			<p:dataTable id="pedidosTable" value="#{pesquisaPedidosBean.model}" var="pedido" emptyMessage="Nenhum pedido encontrado."
+						 rows="4" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" lazy="true">
+				<p:column headerText="Número" style="text-align: center; width: 100px" sortBy="#{pedido.id}">
 					<h:outputText value="#{pedido.id}"/>
 				</p:column>
 			
-				<p:column headerText="Cliente">
+				<p:column headerText="Cliente" sortBy="#{pedido.cliente.nome}">
 					<h:outputText value="#{pedido.cliente.nome}"/>
 				</p:column>
 			
@@ -76,7 +75,7 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Valor Total" style="text-align: right; width: 120px">
+				<p:column headerText="Valor Total" style="text-align: right; width: 120px" sortBy="#{pedido.valorTotal}">
 					<h:outputText value="#{pedido.valorTotal}">
 						<f:convertNumber type="currency"/>
 					</h:outputText>

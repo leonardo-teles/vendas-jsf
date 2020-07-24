@@ -16,6 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -23,6 +24,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import com.algaworks.model.Cliente;
 import com.algaworks.model.Pedido;
 import com.algaworks.model.Usuario;
 import com.algaworks.model.vo.DataValor;
@@ -91,14 +93,9 @@ public class PedidoRepository implements Serializable {
 		return mapaInicial;
 	}
 
-	public List<Pedido> filtrados(PedidoFilter filtro) {
+	private List<Predicate> criarPredicatesParaFiltro(PedidoFilter filtro, Root<Pedido> pedidoRoot, From<?, ?> clienteJoin, From<?, ?> vendedorJoin) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Pedido> criteriaQuery = builder.createQuery(Pedido.class);
 		List<Predicate> predicates = new ArrayList<>();
-		
-		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
-		From<?, ?> clienteJoin = (From<?, ?>) pedidoRoot.fetch("cliente", JoinType.INNER);
-		From<?, ?> vendedorJoin = (From<?, ?>) pedidoRoot.fetch("vendedor", JoinType.INNER);
 		
 		if (filtro.getNumeroDe() != null) {
 			predicates.add(builder.greaterThanOrEqualTo(pedidoRoot.get("id"), filtro.getNumeroDe()));
@@ -128,12 +125,68 @@ public class PedidoRepository implements Serializable {
 			predicates.add(pedidoRoot.get("status").in(Arrays.asList(filtro.getStatus())));
 		}
 		
+		return predicates;
+	}
+	
+	public List<Pedido> filtrados(PedidoFilter filtro) {
+		From<?, ?> orderByFromEntity = null;
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = builder.createQuery(Pedido.class);
+		
+		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+		From<?, ?> clienteJoin = (From<?, ?>) pedidoRoot.fetch("cliente", JoinType.INNER);
+		From<?, ?> vendedorJoin = (From<?, ?>) pedidoRoot.fetch("vendedor", JoinType.INNER);
+		
+		List<Predicate> predicates = criarPredicatesParaFiltro(filtro, pedidoRoot, clienteJoin, vendedorJoin);
+		
 		criteriaQuery.select(pedidoRoot);
 		criteriaQuery.where(predicates.toArray(new Predicate[0]));
-		criteriaQuery.orderBy(builder.asc(pedidoRoot.get("id")));
+		
+		if (filtro.getPropriedadeOrdenacao() != null) {
+			String nomePropriedadeOrdenacao = filtro.getPropriedadeOrdenacao();
+			orderByFromEntity = pedidoRoot;
+			
+			if (filtro.getPropriedadeOrdenacao().contains(".")) {
+				nomePropriedadeOrdenacao = nomePropriedadeOrdenacao.substring(
+					filtro.getPropriedadeOrdenacao().indexOf(".") + 1);
+			}
+			
+			if (filtro.getPropriedadeOrdenacao().startsWith("cliente.")) {
+				orderByFromEntity = clienteJoin;
+			}
+			
+			if (filtro.isAscendente() && filtro.getPropriedadeOrdenacao() != null) {
+				criteriaQuery.orderBy(builder.asc(orderByFromEntity.get(nomePropriedadeOrdenacao)));
+			} else if (filtro.getPropriedadeOrdenacao() != null) {
+				criteriaQuery.orderBy(builder.desc(orderByFromEntity.get(nomePropriedadeOrdenacao)));
+			}
+		}
 		
 		TypedQuery<Pedido> query = manager.createQuery(criteriaQuery);
 		
+		query.setFirstResult(filtro.getPrimeiroRegistro());
+		query.setMaxResults(filtro.getQuantidadeRegistros());
+		
 		return query.getResultList();
 	}
+	
+	public int quantidadeFiltrados(PedidoFilter filtro) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+		
+		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+		Join<Pedido, Cliente> clienteJoin = pedidoRoot.join("cliente", JoinType.INNER);
+		Join<Pedido, Cliente> vendedorJoin = pedidoRoot.join("vendedor", JoinType.INNER);
+
+		List<Predicate> predicates = criarPredicatesParaFiltro(filtro, pedidoRoot, clienteJoin, vendedorJoin);
+		
+		criteriaQuery.select(builder.count(pedidoRoot));
+		criteriaQuery.where(predicates.toArray(new Predicate[0]));
+		
+		TypedQuery<Long> query = manager.createQuery(criteriaQuery);
+		
+		return query.getSingleResult().intValue();
+	}
+	
 }

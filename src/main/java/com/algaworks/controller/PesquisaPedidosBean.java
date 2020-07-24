@@ -1,8 +1,8 @@
 package com.algaworks.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -15,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.algaworks.model.Pedido;
 import com.algaworks.model.StatusPedido;
@@ -29,19 +31,32 @@ public class PesquisaPedidosBean implements Serializable {
 	@Inject
 	private PedidoRepository pedidoRepository;
 	
-	
 	private PedidoFilter filtro;
-	private List<Pedido> pedidosFiltrados;
+	private LazyDataModel<Pedido> model;
 	
 	public PesquisaPedidosBean() {
 		filtro = new PedidoFilter();
-		pedidosFiltrados = new ArrayList<>();
+		
+		model = new LazyDataModel<Pedido>() {
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public List<Pedido> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+				
+				filtro.setPrimeiroRegistro(first);
+				filtro.setQuantidadeRegistros(pageSize);
+				filtro.setPropriedadeOrdenacao(sortField);
+				filtro.setAscendente(SortOrder.ASCENDING.equals(sortOrder));
+				
+				setRowCount(pedidoRepository.quantidadeFiltrados(filtro));
+				
+				return pedidoRepository.filtrados(filtro);
+			}
+			
+		};
 	}
 	
 	//realiza a pesquisa de pedidos com filtro
-	public void pesquisar() {
-		pedidosFiltrados = pedidoRepository.filtrados(filtro);
-	}
 	
 	//lista de status de um pedido
 	public StatusPedido[] getStatus() {
@@ -68,13 +83,12 @@ public class PesquisaPedidosBean implements Serializable {
 			cabecalho.getCell(i).setCellStyle(estiloCelula);
 		}
 	}	
-		
-
-	public List<Pedido> getPedidosFiltrados() {
-		return pedidosFiltrados;
-	}
 
 	public PedidoFilter getFiltro() {
 		return filtro;
+	}
+
+	public LazyDataModel<Pedido> getModel() {
+		return model;
 	}
 }
