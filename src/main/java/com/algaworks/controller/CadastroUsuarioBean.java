@@ -45,12 +45,10 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	//carrega a lista de grupos na inicialização da página
 	public void inicializar() {
-		if (FacesUtil.isNotPostback()) {
-			grupos = grupoRepository.listarTodosOsGrupos();
-			
-			if (isEditando()) {
-				gruposSelecionados = usuario.getGrupos();
-			}
+		grupos = grupoRepository.listarTodosOsGrupos();
+		
+		if (isEditando()) {
+			gruposSelecionados = usuario.getGrupos();
 		}
 	}
 	

@@ -64,14 +64,12 @@ public class CadastroPedidoBean implements Serializable {
 	
 	//carrega a lista de vendedores e clientes na inicialização da página
 	public void inicializar() {
-		if (FacesUtil.isNotPostback()) {
-			this.vendedores = usuarioRepository.vendedores();
-			
-			//adiciona umm linha vazia na tabela de itens no carregamento da página
-			this.pedido.adicionarItemVazio();
-			
-			this.recalcularPedido();
-		}
+		this.vendedores = usuarioRepository.vendedores();
+		
+		//adiciona umm linha vazia na tabela de itens no carregamento da página
+		this.pedido.adicionarItemVazio();
+		
+		this.recalcularPedido();
 	}
 	
 	//limpa os dados da tela após cadastrar um novo pedido
@@ -120,10 +118,10 @@ public class CadastroPedidoBean implements Serializable {
 	public void carregarProdutoLinhaEditavel() {
 		ItemPedido item = this.pedido.getItens().get(0);
 		
-		if (this.existeLinhaComProduto(this.produtoLinhaEditavel)) {
-			FacesUtil.addErrorMessage("Já existe um item no pedido com o produto informado.");
-		} else {
-			if(this.produtoLinhaEditavel != null) {
+		if (this.produtoLinhaEditavel != null) {
+			if (this.existeItemComProduto(this.produtoLinhaEditavel)) {
+				FacesUtil.addErrorMessage("Já existe um item no pedido com o produto informado.");
+			} else {
 				item.setProduto(this.produtoLinhaEditavel);
 				item.setValorUnitario(this.produtoLinhaEditavel.getValorUnitario());
 				
@@ -136,11 +134,11 @@ public class CadastroPedidoBean implements Serializable {
 		}
 	}
 	
-	private boolean existeLinhaComProduto(Produto produto) {
+	private boolean existeItemComProduto(Produto produto) {
 		boolean existeItem = false;
 		
-		for(ItemPedido item : this.getPedido().getItens()) {
-			if(produto.equals(item.getProduto())) {
+		for (ItemPedido item : this.getPedido().getItens()) {
+			if (produto.equals(item.getProduto())) {
 				existeItem = true;
 				break;
 			}
@@ -148,7 +146,6 @@ public class CadastroPedidoBean implements Serializable {
 		
 		return existeItem;
 	}
-
 	public void carregarProdutoPorSku() {
 		if(StringUtils.isNoneEmpty(this.sku)) {
 			this.produtoLinhaEditavel = this.produtoRepository.buscarPorSku(this.sku);

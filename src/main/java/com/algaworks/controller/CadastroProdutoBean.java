@@ -41,13 +41,15 @@ public class CadastroProdutoBean implements Serializable {
 	
 	//carrega a lista de categorias na inicialização da página
 	public void inicializar() {
-		if (FacesUtil.isNotPostback()) {
-			categoriasRaizes = categoriaRepository.buscarCategoriasRaizes();
-			
-			//busca as subcategorias da categoria pai no momento da edição
-			if (this.categoriaPai != null) {
-				carregarSubcategorias();
-			}
+		if(this.produto == null) {
+			limpar();
+		}
+		
+		categoriasRaizes = categoriaRepository.buscarCategoriasRaizes();
+		
+		//busca as subcategorias da categoria pai no momento da edição
+		if (this.categoriaPai != null) {
+			carregarSubcategorias();
 		}
 	}	
 	

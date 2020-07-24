@@ -11,7 +11,7 @@
 	
 		<f:metadata>
 			<f:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}" converter="#{usuarioConverter}"/>
-    		<f:event listener="#{cadastroUsuarioBean.inicializar}" type="preRenderView" />
+    		<f:viewAction action="#{cadastroUsuarioBean.inicializar}"/>
     	</f:metadata>
 	
 		<h:form prependId="false" id="frmCadastro">
