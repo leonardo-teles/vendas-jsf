@@ -20,6 +20,11 @@
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
+					<p:commandButton value="Exportar para XLS" disabled="#{empty pesquisaPedidosBean.pedidosFiltrados}"
+									 icon="fa fa-fw fa-file-excel-o" ajax="false">
+						<p:dataExporter type="xls" target="pedidosTable" fileName="pedidos" postProcessor="#{pesquisaPedidosBean.posProcessarXLS}"/>
+					</p:commandButton>
+				
 					<p:button icon="fa fa-fw fa-plus" value="Novo" outcome="/pedidos/cadastro"/>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -51,7 +56,7 @@
 				</p:selectManyCheckbox>
 			</p:panelGrid>
 			
-			<p:dataTable value="#{pesquisaPedidosBean.pedidosFiltrados}" var="pedido" emptyMessage="Nenhum pedido encontrado."
+			<p:dataTable id="pedidosTable" value="#{pesquisaPedidosBean.pedidosFiltrados}" var="pedido" emptyMessage="Nenhum pedido encontrado."
 						 rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				<p:column headerText="Número" style="text-align: center; width: 100px">
 					<h:outputText value="#{pedido.id}"/>
@@ -81,7 +86,7 @@
 					<h:outputText value="#{pedido.status.descricao}"/>
 				</p:column>
 
-				<p:column headerText="Ação" style="text-align: center; width: 50px">
+				<p:column headerText="Ação" style="text-align: center; width: 50px" exportable="false">
 					<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/pedidos/cadastro">
 						<f:param name="pedido"  value="#{pedido.id}"/>
 					</p:button>
