@@ -14,9 +14,10 @@ public class UsuarioService implements Serializable {
 	
 	@Inject
 	private UsuarioRepository usuarioRepository;
-
+	
 	@Transactional
 	public Usuario salvar(Usuario usuario) throws NegocioException {
+		
 		Usuario usuarioExistente = usuarioRepository.buscarUsuarioPorEmail(usuario.getEmail());
 		
 		if (usuarioExistente != null && !usuarioExistente.equals(usuario)) {
