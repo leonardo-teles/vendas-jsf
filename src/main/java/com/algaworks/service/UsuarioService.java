@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.algaworks.exception.NegocioException;
 import com.algaworks.model.Usuario;
 import com.algaworks.repository.UsuarioRepository;
@@ -15,6 +18,9 @@ public class UsuarioService implements Serializable {
 	@Inject
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@Transactional
 	public Usuario salvar(Usuario usuario) throws NegocioException {
 		
@@ -24,6 +30,14 @@ public class UsuarioService implements Serializable {
 			throw new NegocioException("Já existe um usuário cadastrado com o e-Mail informado.");
 		}
 		
-		return usuarioRepository.adicionar(usuario);
+		Usuario novoUsuario = new Usuario();
+		novoUsuario.setNome(usuario.getNome());
+		novoUsuario.setEmail(usuario.getEmail());
+		
+		novoUsuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		
+		novoUsuario.setGrupos(usuario.getGrupos());
+		
+		return usuarioRepository.adicionar(novoUsuario);
 	}
 }

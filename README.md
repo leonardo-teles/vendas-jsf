@@ -22,3 +22,5 @@ Tópicos Abordados:
    - Apêndice: Mais recursos do PrimeFaces
    - PrimeFaces 6, Spring Security 4, Hibernate 5 e Log4j 2
    
+   <a href="https://www.algaworks.com/certs/WKFWC0R7FY/" rel="noopener" targer="_blank">Certificado</a>
+   
